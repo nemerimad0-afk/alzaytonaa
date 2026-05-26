@@ -1010,7 +1010,7 @@ export default function UserMenu() {
                   <div className="flex flex-col items-center justify-center gap-3 mb-10 text-xs text-[#819b83]">
                     <div className="flex items-center gap-1">
                       <MapPin size={14} className="text-[#d4af37]" />
-                      <span>فلسطين - الخليل - فرش الهوى - عين عركا</span>
+                      <span>فلسطين - الخليل - فرش الهوى -بير عركا</span>
                     </div>
                     <div className="flex items-center gap-1">
                       <Clock size={14} className="text-[#d4af37]" />
@@ -1020,7 +1020,7 @@ export default function UserMenu() {
 
                   <div className="border-t border-[#d4af37]/10 pt-8 flex flex-col items-center">
                     <p className="text-[10px] text-emerald-100/35">
-                      © 2026 جميع الحقوق محفوظة - قائمة مطعم وكافيه الزيتونة الرقمية
+                      © 2026 جميع الحقوق محفوظة -  الزيتونة 
                     </p>
                   </div>
                 </div>
