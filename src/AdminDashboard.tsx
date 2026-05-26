@@ -149,12 +149,13 @@ export default function AdminDashboard() {
 
   // Gallery Helper Functions
   const addGalleryAlbum = () => {
+    const albumId = "wed-" + Date.now();
     const newAlbum: WeddingGalleryItem = {
-      id: "wed-" + Date.now(),
+      id: albumId,
       title: "مجلد مناسبات جديد بالزيتونة",
       description: "اكتب تفصيلاً معبراً عن هذا الحدث البديع وصوره...",
       images: [],
-      folderPath: `/public/images/weddings/custom-${Date.now()}/`,
+      folderPath: `/public/uploads/weddings/${albumId}/`,
       tag: "جلسات مميزة"
     };
     setGallery([...gallery, newAlbum]);
@@ -539,7 +540,7 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleMultipleFilesUpload = async (e: React.ChangeEvent<HTMLInputElement>, onUrls: (urls: string[]) => void) => {
+  const handleMultipleFilesUpload = async (e: React.ChangeEvent<HTMLInputElement>, onUrls: (urls: string[]) => void, albumId?: string) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
@@ -549,7 +550,8 @@ export default function AdminDashboard() {
     }
 
     try {
-      const res = await fetch("/api/upload-multiple", {
+      const uploadUrl = albumId ? `/api/upload-multiple?albumId=${encodeURIComponent(albumId)}` : "/api/upload-multiple";
+      const res = await fetch(uploadUrl, {
         method: "POST",
         headers: { "Authorization": `Bearer ${token}` },
         body: formData
@@ -1006,7 +1008,7 @@ export default function AdminDashboard() {
                           className="hidden"
                           accept="image/*"
                           multiple
-                          onChange={(e) => handleMultipleFilesUpload(e, (urls) => addImagesToAlbum(album.id, urls))}
+                          onChange={(e) => handleMultipleFilesUpload(e, (urls) => addImagesToAlbum(album.id, urls), album.id)}
                         />
                       </label>
 

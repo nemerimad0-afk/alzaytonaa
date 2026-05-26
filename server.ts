@@ -73,10 +73,77 @@ if (!fs.existsSync(UPLOADS_DIR)) {
   fs.mkdirSync(UPLOADS_DIR, { recursive: true });
 }
 
+// Ensure weddings directory and album subfolders exist, and run migration of flat files
+try {
+  const weddingsDir = path.join(UPLOADS_DIR, "weddings");
+  if (!fs.existsSync(weddingsDir)) {
+    fs.mkdirSync(weddingsDir, { recursive: true });
+  }
+
+  const galleryDataRaw = fs.readFileSync(GALLERY_FILE, 'utf-8');
+  const galleryObj = JSON.parse(galleryDataRaw) as any[];
+  let migrationModified = false;
+
+  galleryObj.forEach(album => {
+    const albumDir = path.join(weddingsDir, album.id);
+    if (!fs.existsSync(albumDir)) {
+      fs.mkdirSync(albumDir, { recursive: true });
+    }
+    
+    // Ensure .keep file exists so Git tracks this folder
+    const keepFilePath = path.join(albumDir, ".keep");
+    if (!fs.existsSync(keepFilePath)) {
+      try {
+        fs.writeFileSync(keepFilePath, "");
+      } catch (err) {
+        console.error(`Failed to write .keep to ${album.id}:`, err);
+      }
+    }
+
+    album.images = (album.images || []).map((imgUrl: string) => {
+      if (imgUrl.startsWith('/uploads/') && !imgUrl.startsWith('/uploads/weddings/')) {
+        const filename = path.basename(imgUrl);
+        const oldPath = path.join(UPLOADS_DIR, filename);
+        const newPath = path.join(albumDir, filename);
+        if (fs.existsSync(oldPath)) {
+          try {
+            fs.renameSync(oldPath, newPath);
+            console.log(`Migrated ${filename} to category subfolder ${album.id}`);
+            migrationModified = true;
+            return `/uploads/weddings/${album.id}/${filename}`;
+          } catch (renameErr) {
+            console.error(`Failed to migrate ${filename}:`, renameErr);
+          }
+        }
+      }
+      return imgUrl;
+    });
+  });
+
+  if (migrationModified) {
+    fs.writeFileSync(GALLERY_FILE, JSON.stringify(galleryObj, null, 2));
+    try {
+      const galleryContent = `import { WeddingGalleryItem } from "./data";\n\nexport const dynamicWeddingGalleryData: WeddingGalleryItem[] = ${JSON.stringify(galleryObj, null, 2)};\n`;
+      fs.writeFileSync(path.join(process.cwd(), 'src', 'weddingGalleryData.ts'), galleryContent);
+    } catch (e) {}
+  }
+} catch (migErr) {
+  console.error("Wedding gallery initialization/migration failed:", migErr);
+}
+
 // Set up multer for file uploads
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, UPLOADS_DIR);
+    const albumId = req.query.albumId as string;
+    if (albumId) {
+      const albumDir = path.join(process.cwd(), "public", "uploads", "weddings", albumId);
+      if (!fs.existsSync(albumDir)) {
+        fs.mkdirSync(albumDir, { recursive: true });
+      }
+      cb(null, albumDir);
+    } else {
+      cb(null, UPLOADS_DIR);
+    }
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
@@ -291,10 +358,54 @@ app.put('/api/settings', authenticateToken, (req, res) => {
   }
 });
 
+// Helper function to dynamically list and merge files in wedding subfolders
+const getMergedWeddingGallery = () => {
+  const data = fs.readFileSync(GALLERY_FILE, 'utf-8');
+  const albums = JSON.parse(data) as any[];
+  
+  return albums.map(album => {
+    const albumDir = path.join(process.cwd(), "public", "uploads", "weddings", album.id);
+    if (!fs.existsSync(albumDir)) {
+      try {
+        fs.mkdirSync(albumDir, { recursive: true });
+      } catch (e) {}
+    }
+
+    // Ensure .keep file exists so that git tracks this subfolder
+    const keepFilePath = path.join(albumDir, ".keep");
+    if (!fs.existsSync(keepFilePath)) {
+      try {
+        fs.writeFileSync(keepFilePath, "");
+      } catch (e) {}
+    }
+    
+    try {
+      const files = fs.readdirSync(albumDir);
+      const localImages = files
+        .filter(file => /\.(jpg|jpeg|png|gif|webp|svg|avif)$/i.test(file))
+        .map(file => `/uploads/weddings/${album.id}/${file}`);
+      
+      // Filter out any older links starting with this album's specific static subfolder to avoid duplicates
+      const nonLocalImages = (album.images || []).filter((statImg: string) => {
+        return !statImg.startsWith(`/uploads/weddings/${album.id}/`);
+      });
+      
+      return {
+        ...album,
+        images: [...nonLocalImages, ...localImages],
+        folderPath: `/public/uploads/weddings/${album.id}/`
+      };
+    } catch (err) {
+      console.error(`Error listing folder of album ${album.id}:`, err);
+      return album;
+    }
+  });
+};
+
 app.get('/api/wedding-gallery', (req, res) => {
   try {
-    const data = fs.readFileSync(GALLERY_FILE, 'utf-8');
-    res.json(JSON.parse(data));
+    const merged = getMergedWeddingGallery();
+    res.json(merged);
   } catch (err) {
     res.status(500).json({ error: 'Failed to read wedding gallery data' });
   }
@@ -302,13 +413,19 @@ app.get('/api/wedding-gallery', (req, res) => {
 
 app.put('/api/wedding-gallery', authenticateToken, (req, res) => {
   try {
+    // Write the raw saved gallery list
     fs.writeFileSync(GALLERY_FILE, JSON.stringify(req.body, null, 2));
 
-    // Also update src/weddingGalleryData.ts for static exports
-    const galleryContent = `import { WeddingGalleryItem } from "./data";\n\nexport const dynamicWeddingGalleryData: WeddingGalleryItem[] = ${JSON.stringify(req.body, null, 2)};\n`;
+    // Get the fully merged representation containing physical files on the disk
+    const merged = getMergedWeddingGallery();
+
+    // Persist this fully merged representation to both GALLERY_FILE and src/weddingGalleryData.ts
+    fs.writeFileSync(GALLERY_FILE, JSON.stringify(merged, null, 2));
+
+    const galleryContent = `import { WeddingGalleryItem } from "./data";\n\nexport const dynamicWeddingGalleryData: WeddingGalleryItem[] = ${JSON.stringify(merged, null, 2)};\n`;
     fs.writeFileSync(path.join(process.cwd(), 'src', 'weddingGalleryData.ts'), galleryContent);
 
-    res.json({ success: true });
+    res.json({ success: true, gallery: merged });
   } catch (err) {
     res.status(500).json({ error: 'Failed to update wedding gallery data' });
   }
@@ -324,8 +441,15 @@ app.post('/api/upload', authenticateToken, (req, res) => {
     if (!files || files.length === 0) {
       return res.status(400).json({ error: 'No file uploaded' });
     }
-    const filename = files[0].filename;
-    res.json({ url: `/uploads/${filename}` });
+    const file = files[0];
+    const albumId = req.query.albumId as string;
+    let url = '';
+    if (albumId) {
+      url = `/uploads/weddings/${albumId}/${file.filename}`;
+    } else {
+      url = `/uploads/${file.filename}`;
+    }
+    res.json({ url });
   });
 });
 
@@ -339,7 +463,14 @@ app.post('/api/upload-multiple', authenticateToken, (req, res) => {
     if (!files || files.length === 0) {
       return res.status(400).json({ error: 'No files uploaded' });
     }
-    const urls = files.map(file => `/uploads/${file.filename}`);
+    const albumId = req.query.albumId as string;
+    const urls = files.map(file => {
+      if (albumId) {
+        return `/uploads/weddings/${albumId}/${file.filename}`;
+      } else {
+        return `/uploads/${file.filename}`;
+      }
+    });
     res.json({ urls });
   });
 });
@@ -352,11 +483,22 @@ app.delete('/api/delete-image', authenticateToken, (req, res) => {
     }
 
     if (url.startsWith('/uploads/')) {
-      const filename = path.basename(url);
-      const filepath = path.join(UPLOADS_DIR, filename);
-      if (fs.existsSync(filepath)) {
+      let filepath = '';
+      if (url.startsWith('/uploads/weddings/')) {
+        const pathParts = url.replace('/uploads/weddings/', '').split('/');
+        if (pathParts.length === 2) {
+          const albumId = pathParts[0];
+          const filename = pathParts[1];
+          filepath = path.join(process.cwd(), "public", "uploads", "weddings", albumId, filename);
+        }
+      } else {
+        const filename = path.basename(url);
+        filepath = path.join(UPLOADS_DIR, filename);
+      }
+
+      if (filepath && fs.existsSync(filepath)) {
         fs.unlinkSync(filepath);
-        return res.json({ success: true, message: 'Image deleted fromdisk successfully' });
+        return res.json({ success: true, message: 'Image deleted from disk successfully' });
       }
     }
     return res.json({ success: true, message: 'Image ref removed successfully' });
