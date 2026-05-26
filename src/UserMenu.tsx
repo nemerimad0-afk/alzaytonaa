@@ -36,6 +36,8 @@ import {
   OccasionsAlbumItem,
   occasionsAlbumData
 } from "./data";
+import { dynamicWeddingGalleryData } from "./weddingGalleryData";
+import { SiteSettings } from "./settingsTypes";
 
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -75,6 +77,19 @@ export default function UserMenu() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [selectedWeddingGallery, setSelectedWeddingGallery] = useState<WeddingGalleryItem | null>(null);
   const [galleryActiveIndex, setGalleryActiveIndex] = useState(0);
+  const [weddingGallery, setWeddingGallery] = useState<WeddingGalleryItem[]>(dynamicWeddingGalleryData);
+
+  // Custom dynamically managed states
+  const [cateringItems, setCateringItems] = useState<CateringItem[]>(cateringData);
+  const [siteSettings, setSiteSettings] = useState<SiteSettings | null>(null);
+
+  // Helper to resolve site settings keys smoothly with fallback values
+  const resolveSetting = (key: keyof SiteSettings, fallback: string): string => {
+    if (siteSettings && siteSettings[key]) {
+      return String(siteSettings[key]);
+    }
+    return fallback;
+  };
 
   // Auto-slide for the occasions album gallery
   useEffect(() => {
@@ -90,18 +105,14 @@ export default function UserMenu() {
   const getBackgroundImage = () => {
     switch (activeDivision) {
       case "events":
-        // Wedding / Events background
-        return "https://images.unsplash.com/photo-1519225495810-7512c696505a?auto=format&fit=crop&q=80&w=1600";
+        return resolveSetting("weddingBg", "https://images.unsplash.com/photo-1519225495810-7512c696505a?auto=format&fit=crop&q=80&w=1600");
       case "catering":
-        // Stuffed lamb / Rib roast background
-        return "https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&q=80&w=1600";
+        return resolveSetting("cateringBg", "https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&q=80&w=1600");
       case "menu":
-        // Restaurant menu background (BBQ/Grills)
-        return "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=1600";
+        return resolveSetting("menuBg", "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=1600");
       case "portal":
       default:
-        // Large gorgeous garden background
-        return "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&q=80&w=1600";
+        return resolveSetting("portalBg", "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&q=80&w=1600");
     }
   };
 
@@ -120,6 +131,45 @@ export default function UserMenu() {
       .catch(e => {
         console.error("Using local fallback for menuData");
         setMenuData(localMenuData);
+      });
+
+    fetch(`/api/wedding-gallery?t=${Date.now()}`)
+      .then(r => {
+        if (!r.ok) throw new Error("API not available");
+        return r.json();
+      })
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          setWeddingGallery(data);
+        }
+      })
+      .catch(e => {
+        console.error("Using fallback for weddingGallery");
+        setWeddingGallery(dynamicWeddingGalleryData);
+      });
+
+    fetch(`/api/catering?t=${Date.now()}`)
+      .then(r => r.ok ? r.json() : Promise.reject())
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          setCateringItems(data);
+        }
+      })
+      .catch(e => {
+        console.error("Using fallback for catering items");
+        setCateringItems(cateringData);
+      });
+
+    fetch(`/api/settings?t=${Date.now()}`)
+      .then(r => r.ok ? r.json() : Promise.reject())
+      .then(data => {
+        if (data && typeof data === 'object') {
+          setSiteSettings(data);
+        }
+      })
+      .catch(e => {
+        console.error("Using fallback for siteSettings");
+        import('./settingsData').then(mod => setSiteSettings(mod.settingsData)).catch(err => console.error(err));
       });
   }, []);
 
@@ -260,7 +310,7 @@ export default function UserMenu() {
                     repeat: Infinity, 
                     ease: "easeInOut" 
                   }}
-                  src="/logo.png" 
+                  src={resolveSetting("logoUrl", "/logo.png")} 
                   alt="Al Zaytouna Emblem" 
                   className="h-28 sm:h-36 w-auto object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.8)]"
                   onError={(e) => {
@@ -276,13 +326,13 @@ export default function UserMenu() {
               </div>
 
               <h1 className="text-5xl sm:text-6xl font-bold tracking-wide text-[#faf7ec] font-['Amiri'] mb-3 drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)]">
-                الزيتونة
+                {resolveSetting("portalTitle", "الزيتونة")}
               </h1>
               
               <div className="w-24 h-[1.5px] bg-gradient-to-r from-transparent via-[#d4af37] to-transparent mb-5" />
 
               <p className="text-sm sm:text-base text-[#a3bfa5] text-center font-medium font-['Cairo'] leading-relaxed max-w-xs mb-8 mx-auto">
-                أصالة المذاق الكنعاني، وصالات مناسباتكم السعيدة، وقسم التواصي والولائم الفخم
+                {resolveSetting("portalSubtitle", "أصالة المذاق الكنعاني، وصالات مناسباتكم السعيدة، وقسم التواصي والولائم الفخم")}
               </p>
 
               {/* Progressive loading indicator bar directly below */}
@@ -300,6 +350,58 @@ export default function UserMenu() {
       </AnimatePresence>
 
       <div className={`min-h-screen relative bg-[#050805] text-[#f6fdf7] font-['Cairo'] pb-28 ${showSplash ? "h-screen overflow-hidden" : ""}`} dir="rtl">
+        {/* Dynamic Theme Color Injection Style Block */}
+        {siteSettings && (
+          <style>{`
+            :root {
+              --color-primary: ${siteSettings.primaryColor || '#111e12'} !important;
+              --color-olive-dark: ${siteSettings.primaryColor || '#162618'} !important;
+              --color-olive-gold: ${siteSettings.accentColor || '#b39139'} !important;
+              --color-gold-light: ${siteSettings.textColor || '#f3eac8'} !important;
+              --color-earth-sand: ${siteSettings.textColor || '#f6f3eb'} !important;
+            }
+            body {
+              background-color: ${siteSettings.primaryBgColor || '#050805'} !important;
+              color: ${siteSettings.textColor || '#faf7ec'} !important;
+            }
+            .border-\\[\\#d4af37\\] {
+              border-color: ${siteSettings.accentColor || '#d4af37'} !important;
+            }
+            .border-\\[\\#d4af37\\]\\/20 {
+              border-color: ${siteSettings.accentColor || '#d4af37'}33 !important;
+            }
+            .border-\\[\\#d4af37\\]\\/25 {
+              border-color: ${siteSettings.accentColor || '#d4af37'}40 !important;
+            }
+            .border-\\[\\#d4af37\\]\\/30 {
+              border-color: ${siteSettings.accentColor || '#d4af37'}4d !important;
+            }
+            .border-\\[\\#d4af37\\]\\/40 {
+              border-color: ${siteSettings.accentColor || '#d4af37'}66 !important;
+            }
+            .border-\\[\\#d4af37\\]\\/45 {
+              border-color: ${siteSettings.accentColor || '#d4af37'}73 !important;
+            }
+            .text-\\[\\#d4af37\\] {
+              color: ${siteSettings.accentColor || '#d4af37'} !important;
+            }
+            .bg-\\[\\#d4af37\\] {
+              background-color: ${siteSettings.accentColor || '#d4af37'} !important;
+            }
+            .bg-\\[\\#d4af37\\]\\/10 {
+              background-color: ${siteSettings.accentColor || '#d4af37'}1a !important;
+            }
+            .bg-\\[\\#d4af37\\]\\/15 {
+              background-color: ${siteSettings.accentColor || '#d4af37'}26 !important;
+            }
+            .text-\\[\\#faf7ec\\] {
+              color: ${siteSettings.textColor || '#faf7ec'} !important;
+            }
+            .bg-\\[\\#faf7ec\\] {
+              background-color: ${siteSettings.textColor || '#faf7ec'} !important;
+            }
+          `}</style>
+        )}
         
         {/* Decorative Background Assets */}
         <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
@@ -322,10 +424,10 @@ export default function UserMenu() {
           <div className="sticky top-0 z-40 transition-colors duration-300 bg-[#162618]/90 backdrop-blur-xl border-b border-[#3f6042]/30 px-4 py-4 flex items-center justify-between shadow-lg">
             
             <div className="flex gap-3 items-center w-auto">
-              <a href="https://www.instagram.com/alzaytounagarden?igsh=d201ZWE1dm9lOHoy" target="_blank" rel="noopener noreferrer" className="text-[#faf7ec] hover:text-[#d4af37] transition-colors">
+              <a href={resolveSetting("instagramUrl", "https://www.instagram.com/alzaytounagarden?igsh=d201ZWE1dm9lOHoy")} target="_blank" rel="noopener noreferrer" className="text-[#faf7ec] hover:text-[#d4af37] transition-colors">
                 <Instagram size={20} />
               </a>
-              <a href="https://www.facebook.com/share/17ijDmHrak/" target="_blank" rel="noopener noreferrer" className="text-[#faf7ec] hover:text-[#d4af37] transition-colors">
+              <a href={resolveSetting("facebookUrl", "https://www.facebook.com/share/17ijDmHrak/")} target="_blank" rel="noopener noreferrer" className="text-[#faf7ec] hover:text-[#d4af37] transition-colors">
                 <Facebook size={20} />
               </a>
             </div>
@@ -340,16 +442,16 @@ export default function UserMenu() {
               className="flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity absolute left-1/2 -translate-x-1/2"
               title="الرجوع للرئيسية"
             >
-              <img src="/logo.png" alt="الزيتونة" className="h-10 sm:h-12 w-auto object-contain" />
+              <img src={resolveSetting("logoUrl", "/logo.png")} alt="الزيتونة" className="h-10 sm:h-12 w-auto object-contain" />
             </div>
 
             {/* Left Side: Location & WhatsApp */}
             <div className="flex gap-2 sm:gap-3 items-center w-auto justify-end" dir="ltr">
-              <a href="https://maps.app.goo.gl/4CExVi9K2ynHPcpu8?g_st=ac" target="_blank" rel="noopener noreferrer" className="text-[#faf7ec] hover:text-[#d4af37] transition-colors flex items-center gap-1.5 bg-[#d4af37]/10 border border-[#d4af37]/30 px-2.5 py-1 rounded-full cursor-pointer" title="لزيارتنا">
+              <a href={resolveSetting("googleMapsUrl", "https://maps.app.goo.gl/4CExVi9K2ynHPcpu8?g_st=ac")} target="_blank" rel="noopener noreferrer" className="text-[#faf7ec] hover:text-[#d4af37] transition-colors flex items-center gap-1.5 bg-[#d4af37]/10 border border-[#d4af37]/30 px-2.5 py-1 rounded-full cursor-pointer" title="لزيارتنا">
                 <MapPin size={14} className="text-[#d4af37]" />
                 <span className="text-[10px] font-bold font-['Cairo']">لزيارتنا</span>
               </a>
-              <a href="https://wa.me/972598467629" target="_blank" rel="noopener noreferrer" className="text-[#faf7ec] hover:text-[#d4af37] transition-colors cursor-pointer" title="للتواصل معنا عبر واتساب">
+              <a href={`https://wa.me/${resolveSetting("whatsapp", "972598467629")}`} target="_blank" rel="noopener noreferrer" className="text-[#faf7ec] hover:text-[#d4af37] transition-colors cursor-pointer" title="للتواصل معنا عبر واتساب">
                 <MessageCircle size={20} />
               </a>
             </div>
@@ -379,7 +481,7 @@ export default function UserMenu() {
                         className="p-3 bg-white/[0.02] border border-[#d4af37]/20 rounded-full shadow-2xl backdrop-blur-md"
                       >
                         <img 
-                          src="/logo.png" 
+                          src={resolveSetting("logoUrl", "/logo.png")} 
                           alt="Al Zaytouna Logo" 
                           className="h-28 sm:h-36 w-auto object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]"
                           onError={(e) => {
@@ -391,11 +493,11 @@ export default function UserMenu() {
                     </div>
 
                     <h2 className="text-4xl sm:text-5xl font-bold font-['Amiri'] mb-4 text-[#faf7ec] tracking-wide leading-tight drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)]">
-                      أهلاً وسهلاً بكم في الزيتونة
+                      {resolveSetting("portalTitle", "أهلاً وسهلاً بكم في الزيتونة")}
                     </h2>
 
                     <p className="text-sm sm:text-base text-[#a3bfa5] font-normal leading-relaxed max-w-xl mx-auto mb-10 font-['Cairo']">
-                      نُرحّب بكم في صرح الضيافة المتكامل؛ ثلاثة أقسام نُجسّد بها عراقة المذاق الكنعاني وتفاصيل مناسباتكم السعيدة والولائم الفخمة بفرش الهوى الخلابة.
+                      {resolveSetting("portalSubtitle", "نُرحّب بكم في صرح الضيافة المتكامل؛ ثلاثة أقسام نُجسّد بها عراقة المذاق الكنعاني وتفاصيل مناسباتكم السعيدة والولائم الفخمة بفرش الهوى الخلابة.")}
                     </p>
                   </div>
 
@@ -410,7 +512,7 @@ export default function UserMenu() {
                       <div className="relative w-full h-full rounded-[2.4rem] overflow-hidden flex flex-col justify-end p-6">
                         <div 
                           className="absolute inset-0 bg-cover bg-center brightness-[0.35] group-hover:scale-105 transition-transform duration-700" 
-                          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=600')" }}
+                          style={{ backgroundImage: `url('${resolveSetting("menuBg", "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=600")}')` }}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#040804]/95 via-[#040804]/50 to-transparent z-10" />
                         
@@ -425,9 +527,9 @@ export default function UserMenu() {
                           </div>
                           
                           <div>
-                            <h3 className="text-2xl font-bold font-['Amiri'] text-[#faf7ec] mb-2">مطعم وكافيه الزيتونة</h3>
+                            <h3 className="text-2xl font-bold font-['Amiri'] text-[#faf7ec] mb-2">{resolveSetting("menuTabTitle", "مطعم وكافيه الزيتونة")}</h3>
                             <p className="text-xs text-[#a3bfa5] leading-relaxed mb-4 font-['Cairo']">
-                              تذوقوا المأكولات الإيطالية الشهية والمشاوي والريش المحمرة على لهب كوخ الحطب البلدي والحلويات والمشروبات المنعشة.
+                              {resolveSetting("menuTabDesc", "تذوقوا المأكولات الإيطالية الشهية والمشاوي والريش المحمرة على لهب كوخ الحطب البلدي والحلويات والمشروبات المنعشة.")}
                             </p>
                             <button 
                               onClick={() => {
@@ -453,7 +555,7 @@ export default function UserMenu() {
                       <div className="relative w-full h-full rounded-[2.4rem] overflow-hidden flex flex-col justify-end p-6">
                         <div 
                           className="absolute inset-0 bg-cover bg-center brightness-[0.35] group-hover:scale-105 transition-transform duration-700" 
-                          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=600')" }}
+                          style={{ backgroundImage: `url('${resolveSetting("weddingBg", "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=600")}')` }}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#040804]/95 via-[#040804]/50 to-transparent z-10" />
                         
@@ -468,9 +570,9 @@ export default function UserMenu() {
                           </div>
                           
                           <div>
-                            <h3 className="text-2xl font-bold font-['Amiri'] text-[#faf7ec] mb-2">قاعة الأعراس والحفلات</h3>
+                            <h3 className="text-2xl font-bold font-['Amiri'] text-[#faf7ec] mb-2">{resolveSetting("eventsTabTitle", "قاعة الأعراس والحفلات")}</h3>
                             <p className="text-xs text-[#a3bfa5] leading-relaxed mb-4 font-['Cairo']">
-                              مساحاتنا الخضراء وممراتها المضاءة مصممة بعناية فائقة لتنعموا بليلة العمر الاستثنائية وسهرات العائلات المرموقة والبهيجة.
+                              {resolveSetting("eventsTabDesc", "مساحاتنا الخضراء وممراتها المضاءة مصممة بعناية فائقة لتنعموا بليلة العمر الاستثنائية وسهرات العائلات المرموقة والبهيجة.")}
                             </p>
                             <button 
                               onClick={() => {
@@ -496,7 +598,7 @@ export default function UserMenu() {
                       <div className="relative w-full h-full rounded-[2.4rem] overflow-hidden flex flex-col justify-end p-6">
                         <div 
                           className="absolute inset-0 bg-cover bg-center brightness-[0.35] group-hover:scale-105 transition-transform duration-700" 
-                          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&q=80&w=600')" }}
+                          style={{ backgroundImage: `url('${resolveSetting("cateringBg", "https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&q=80&w=600")}')` }}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#040804]/95 via-[#040804]/50 to-transparent z-10" />
                         
@@ -511,9 +613,9 @@ export default function UserMenu() {
                           </div>
                           
                           <div>
-                            <h3 className="text-2xl font-bold font-['Amiri'] text-[#faf7ec] mb-2">قسم التواصي والطلب</h3>
+                            <h3 className="text-2xl font-bold font-['Amiri'] text-[#faf7ec] mb-2">{resolveSetting("cateringTabTitle", "قسم التواصي والطلب")}</h3>
                             <p className="text-xs text-[#a3bfa5] leading-relaxed mb-4 font-['Cairo']">
-                              ولائم كبرى تفوق التوقعات؛ خرفان بلدية كاملة محشية بالأرز الطويل واللوز، رقاب محشية بلديّة، وسدور المنسف المحضّر بالجميد الأصلي.
+                              {resolveSetting("cateringTabDesc", "ولائم كبرى تفوق التوقعات؛ خرفان بلدية كاملة محشية بالأرز الطويل واللوز، رقاب محشية بلديّة، وسدور المنسف المحضّر بالجميد الأصلي.")}
                             </p>
                             <button 
                               onClick={() => {
@@ -549,7 +651,7 @@ export default function UserMenu() {
                         className="p-3 bg-white/[0.02] border border-[#d4af37]/20 rounded-full shadow-2xl backdrop-blur-md"
                       >
                         <img 
-                          src="/logo.png" 
+                          src={resolveSetting("logoUrl", "/logo.png")} 
                           alt="Al Zaytouna Logo" 
                           className="h-28 sm:h-36 w-auto object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]"
                           onError={(e) => {
@@ -561,11 +663,11 @@ export default function UserMenu() {
                     </div>
 
                     <h2 className="text-4xl sm:text-5xl font-bold font-['Amiri'] mb-4 text-[#faf7ec] tracking-wide leading-tight drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)]">
-                      قائمة مطعم وكافيه الزيتونة
+                      {resolveSetting("menuTabTitle", "قائمة مطعم وكافيه الزيتونة")}
                     </h2>
 
                     <p className="text-sm sm:text-base text-[#a3bfa5] font-normal leading-relaxed max-w-lg mx-auto mb-8 font-['Cairo']">
-                      مساحاتنا الخضراء الطبيعية، مصممة بعناية فائقة لتنعموا بجلسة عائلية مريحة ودافئة في فرش الهوى. تذوقوا أجود اللحوم البلدية المدخنة، والمعجنات الإيطالية الطازجة من الفرن الحجري الفاخر.
+                      {resolveSetting("menuTabDesc", "مساحاتنا الخضراء الطبيعية، مصممة بعناية فائقة لتنعموا بجلسة عائلية مريحة ودافئة في فرش الهوى. تذوقوا أجود اللحوم البلدية المدخنة، والمعجنات الإيطالية الطازجة من الفرن الحجري الفاخر.")}
                     </p>
 
                     {/* SEARCH DRUM BAR */}
@@ -760,7 +862,7 @@ export default function UserMenu() {
                       className="p-3 bg-white/[0.02] border border-[#d4af37]/20 rounded-full shadow-2xl backdrop-blur-md"
                     >
                       <img 
-                        src="/logo.png" 
+                        src={resolveSetting("logoUrl", "/logo.png")} 
                         alt="Al Zaytouna Logo" 
                         className="h-28 sm:h-36 w-auto object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]"
                         onError={(e) => {
@@ -775,15 +877,15 @@ export default function UserMenu() {
                     <div className="inline-flex justify-center mb-4 text-[#d4af37]">
                       <Heart size={36} className="fill-[#d4af37]/20 animate-pulse" />
                     </div>
-                    <h2 className="text-4xl sm:text-5xl font-bold font-['Amiri'] mb-3 text-[#faf7ec]">قاعات ومناسبات الزيتونة</h2>
+                    <h2 className="text-4xl sm:text-5xl font-bold font-['Amiri'] mb-3 text-[#faf7ec]">{resolveSetting("eventsTabTitle", "قاعات ومناسبات الزيتونة")}</h2>
                     <p className="text-sm sm:text-base text-zinc-200 max-w-lg mx-auto font-['Cairo'] leading-relaxed">
-                      نسعد بتخليد أسعد أيام العمر في صالتنا وزوايانا الخارجية البديعة المجهزة بكامل متطلبات الفخامة وممرات الورد وكرم الاستقبال.
+                      {resolveSetting("eventsTabDesc", "نسعد بتخليد أسعد أيام العمر في صالتنا وزوايانا الخارجية البديعة المجهزة بكامل متطبات الفخامة وممرات الورد وكرم الاستقبال.")}
                     </p>
                   </div>
 
                   {/* Gallery List */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mt-4">
-                    {weddingGalleryData.map((item) => (
+                    {weddingGallery.map((item) => (
                       <div 
                         key={item.id} 
                         onClick={() => {
@@ -796,7 +898,7 @@ export default function UserMenu() {
                           <div className="relative h-60 w-full overflow-hidden">
                             {/* Simple crossfade display or just the cover image */}
                             <img 
-                              src={item.images[0]} 
+                              src={(item.images && item.images.length > 0) ? item.images[0] : "https://images.unsplash.com/photo-1519225495810-7512c696505a?auto=format&fit=crop&q=80&w=600"} 
                               alt={item.title} 
                               className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" 
                             />
@@ -824,7 +926,7 @@ export default function UserMenu() {
                                </p>
                             </div>
                             <a 
-                              href={`https://wa.me/972598467629?text=${encodeURIComponent(`مرحباً الزيتونة، استفسار بخصوص تنظيم حجز قاعة الأعراس والمناسبات لـ: ${item.title}`)}`}
+                              href={`https://wa.me/${resolveSetting("whatsapp", "972598467629")}?text=${encodeURIComponent(`مرحباً الزيتونة، استفسار بخصوص تنظيم حجز قاعة الأعراس والمناسبات لـ: ${item.title}`)}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               onClick={(e) => e.stopPropagation()}
@@ -849,7 +951,7 @@ export default function UserMenu() {
                       سواء كان زفاف أحلامك، خطوبة مميزة، أو بوفيه لمّة لمناسبة اجتماعية قيّمة، نحن فخورون بتفاصيل الجودة والتنظيم الفندقي. تواصل معنا لتنسيق الأعداد والخدمات المشمولة عافيةً وسروراً.
                     </p>
                     <a 
-                      href="https://wa.me/972598467629?text=%D9%85%D9%81%D8%AA%D9%91%D8%AD%20%D8%A7%D9%84%D8%B2%D9%8A%D8%AA%D9%88%D9%86%D8%A9%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%84%D8%AC%D8%B2%20%D9%82%D8%A7%D8%B9%D8%A9%20%D8%A7%D9%84%D9%85%D9%86%D8%A7%20%D8%B3%20%D8%A8%D8%A7%D8%AA"
+                      href={`https://wa.me/${resolveSetting("whatsapp", "972598467629")}?text=${encodeURIComponent("مرحّب الزيتونة، أود التواصل لحجز قاعة المناسبات")}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-[#d4af37] to-[#b39139] hover:opacity-90 text-[#050805] font-extrabold text-sm rounded-xl transition-all shadow-xl cursor-pointer"
@@ -889,15 +991,15 @@ export default function UserMenu() {
                     <div className="inline-flex justify-center mb-4 text-[#d4af37]">
                       <Flame size={36} className="text-[#d4af37] animate-pulse" />
                     </div>
-                    <h2 className="text-4xl sm:text-5xl font-bold font-['Amiri'] mb-3 text-[#faf7ec]">قسم التواصي وولائم المناسبات</h2>
+                    <h2 className="text-4xl sm:text-5xl font-bold font-['Amiri'] mb-3 text-[#faf7ec]">{resolveSetting("cateringTabTitle", "قسم التواصي وولائم المناسبات")}</h2>
                     <p className="text-sm sm:text-base text-zinc-200 max-w-lg mx-auto font-['Cairo'] leading-relaxed">
-                      نقدم أفخم الولائم البلدية التقليدية المحشوة والمجهزة لتصل في الموعد ساخنة غضّة لتبيض وجوهكم في مناسباتكم الكبرى والعائلية المتميزة.
+                      {resolveSetting("cateringTabDesc", "نقدم أفخم الولائم البلدية التقليدية المحشوة والمجهزة لتصل في الموعد ساخنة غضّة لتبيض وجوهكم في مناسباتكم الكبرى والعائلية المتميزة.")}
                     </p>
                   </div>
 
                   {/* Catering List Items */}
                   <div className="space-y-12 mt-6">
-                    {cateringData.map((item) => (
+                    {cateringItems.map((item) => (
                       <div 
                         key={item.id}
                         className="bg-gradient-to-tr from-[#050805] via-[#09150a] to-black border border-[#d4af37]/20 p-5 sm:p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden group flex flex-col lg:flex-row gap-6 md:gap-8 items-center"
@@ -912,7 +1014,7 @@ export default function UserMenu() {
                             className="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-700"
                           />
                           {item.approxWeight && (
-                            <div className="absolute bottom-4 right-4 bg-emerald-950/95 border border-[#d4af37]/30 px-3 py-1 rounded-xl text-[10px] sm:text-xs font-bold text-[#faf7ec] shadow-inner">
+                            <div className="absolute bottom-4 right-4 bg-emerald-950/95 border border-[#d4af37]/30 px-3 py-1 rounded-xl text-[10px] sm:text-xs font-bold text-[#faf7ec] shadow-inner font-['Cairo']">
                               الوزن التقريبي: {item.approxWeight}
                             </div>
                           )}
@@ -925,7 +1027,7 @@ export default function UserMenu() {
                           </p>
 
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-6">
-                            {item.features.map((feat, fIdx) => (
+                            {item.features && item.features.map((feat, fIdx) => (
                               <div key={fIdx} className="flex items-center gap-2 text-xs text-[#8da48e] font-medium font-['Cairo']">
                                 <span className="w-1.5 h-1.5 rounded-full bg-[#d4af37]" />
                                 <span>{feat}</span>
@@ -942,34 +1044,18 @@ export default function UserMenu() {
                             </div>
 
                             <a 
-                              href={`https://wa.me/972598467629?text=${encodeURIComponent(`مرحباً كافيه ومطعم الزيتونة، أود طلب حجز تواصي مناسبة لوليمة: ${item.name} - السعر ${item.price} شيكل.`)}`}
+                              href={`https://wa.me/${resolveSetting("whatsapp", "972598467629")}?text=${encodeURIComponent(`مرحباً كافيه ومطعم الزيتونة، أود طلب حجز تواصي مناسبة لوليمة: ${item.name} - السعر ${item.price} شيكل.`)}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="bg-[#faf7ec] border border-[#d4af37]/45 hover:bg-[#d4af37] text-[#050805] text-xs font-extrabold px-6 py-3 rounded-xl flex items-center gap-1.5 transition-all w-full sm:w-auto justify-center cursor-pointer"
                             >
-                              <Phone size={14} />
-                              <span>طلب وحجز العزومة الآن</span>
+                              <span>طلب الوجبة بالكامل/تفاصيل الحجز</span>
+                              <ChevronLeft size={14} className="stroke-[2.5px]" />
                             </a>
                           </div>
                         </div>
                       </div>
                     ))}
-                  </div>
-
-                  <div className="mt-16 text-center bg-zinc-950/60 border border-[#d4af37]/20 rounded-[2rem] p-8 sm:p-10 shadow-xl">
-                    <h3 className="text-xl font-bold font-['Amiri'] text-[#faf7ec] mb-3">طلب قسيمة طعام مخصصة</h3>
-                    <p className="text-xs sm:text-sm text-[#8da48e] max-w-xl mx-auto leading-relaxed mb-6 font-['Cairo']">
-                      نحن مستعدون لتجهيز أي وليمة تقليدية أو مأكولات شعبية حسب رغبتكم بالثوم المهروس والبهارات كنعانية الأصيلة وبكميات ضخمة. تواصلوا معنا للتنسيق.
-                    </p>
-                    <a 
-                      href="https://wa.me/972598467629"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-xs font-black text-[#faf7ec] bg-emerald-950 border border-[#d4af37]/45 px-6 py-3 rounded-xl hover:bg-[#d4af37] hover:text-[#050805] transition-all"
-                    >
-                      <span>طلب مكالمة للتنسيق والتواصي الخاصة</span>
-                      <ChevronLeft size={16} />
-                    </a>
                   </div>
                 </div>
               )}
@@ -980,28 +1066,28 @@ export default function UserMenu() {
                 
                 <div className="relative z-10 max-w-4xl mx-auto">
                   <div className="flex justify-center mb-4">
-                    <img src="/logo.png" alt="الزيتونة" className="w-16 h-16 object-contain" />
+                    <img src={resolveSetting("logoUrl", "/logo.png")} alt="الزيتونة" className="w-16 h-16 object-contain" />
                   </div>
 
                   <h3 className="text-[#faf7ec] text-lg font-bold mb-2">
-                    الزيتونة
+                    {resolveSetting("portalTitle", "الزيتونة")}
                   </h3>
                   <p className="text-xs text-[#8da48e] max-w-sm mx-auto mb-8 leading-relaxed">
-                    متعة هواء الحدائق المنعشة مع المذاق البلدي الساحر. غايتنا خدمتكم بأعلى معايير الراحة والضيافة.
+                    {resolveSetting("footerDesc", "متعة هواء الحدائق المنعشة مع المذاق البلدي الساحر. غايتنا خدمتكم بأعلى معايير الراحة والضيافة.")}
                   </p>
 
                   <div className="flex justify-center items-center gap-4 sm:gap-6 mb-8" dir="ltr">
-                    <a href="https://maps.app.goo.gl/4CExVi9K2ynHPcpu8?g_st=ac" target="_blank" rel="noopener noreferrer" className="bg-[#d4af37]/10 border border-[#d4af37]/30 hover:bg-[#d4af37] hover:text-[#050805] transition-all flex items-center justify-center px-4 py-2 rounded-full text-[#faf7ec] gap-2 mr-2">
+                    <a href={resolveSetting("googleMapsUrl", "https://maps.app.goo.gl/4CExVi9K2ynHPcpu8?g_st=ac")} target="_blank" rel="noopener noreferrer" className="bg-[#d4af37]/10 border border-[#d4af37]/30 hover:bg-[#d4af37] hover:text-[#050805] transition-all flex items-center justify-center px-4 py-2 rounded-full text-[#faf7ec] gap-2 mr-2">
                       <span className="text-xs font-bold font-['Cairo']">لزيارتنا</span>
                       <MapPin size={17} />
                     </a>
-                    <a href="https://wa.me/972598467629" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-emerald-950/45 hover:bg-[#d4af37] hover:text-[#070b07] transition-all flex items-center justify-center text-[#faf7ec] border border-[#d4af37]/10" title="تواصل معنا">
+                    <a href={`https://wa.me/${resolveSetting("whatsapp", "972598467629")}`} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-emerald-950/45 hover:bg-[#d4af37] hover:text-[#070b07] transition-all flex items-center justify-center text-[#faf7ec] border border-[#d4af37]/10" title="تواصل معنا">
                       <MessageCircle size={17} />
                     </a>
-                    <a href="https://www.facebook.com/share/17ijDmHrak/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-emerald-950/45 hover:bg-[#d4af37] hover:text-[#070b07] transition-all flex items-center justify-center text-[#faf7ec] border border-emerald-900/10">
+                    <a href={resolveSetting("facebookUrl", "https://www.facebook.com/share/17ijDmHrak/")} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-emerald-950/45 hover:bg-[#d4af37] hover:text-[#070b07] transition-all flex items-center justify-center text-[#faf7ec] border border-emerald-900/10">
                       <Facebook size={17} />
                     </a>
-                    <a href="https://www.instagram.com/alzaytounagarden?igsh=d201ZWE1dm9lOHoy" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-emerald-950/45 hover:bg-[#d4af37] hover:text-[#070b07] transition-all flex items-center justify-center text-[#faf7ec] border border-emerald-900/10">
+                    <a href={resolveSetting("instagramUrl", "https://www.instagram.com/alzaytounagarden?igsh=d201ZWE1dm9lOHoy")} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-emerald-950/45 hover:bg-[#d4af37] hover:text-[#070b07] transition-all flex items-center justify-center text-[#faf7ec] border border-emerald-900/10">
                       <Instagram size={17} />
                     </a>
                   </div>
@@ -1010,11 +1096,11 @@ export default function UserMenu() {
                   <div className="flex flex-col items-center justify-center gap-3 mb-10 text-xs text-[#819b83]">
                     <div className="flex items-center gap-1">
                       <MapPin size={14} className="text-[#d4af37]" />
-                      <span>فلسطين - الخليل - فرش الهوى -بير عركا</span>
+                      <span>{resolveSetting("addressText", "فلسطين - الخليل - فرش الهوى -بير عكا")}</span>
                     </div>
                     <div className="flex items-center gap-1">
                       <Clock size={14} className="text-[#d4af37]" />
-                      <span>مفتوح يومياً من الساعة 10:00 صباحاً حتى 12:00 ليلاً</span>
+                      <span>{resolveSetting("workingHoursText", "مفتوح يومياً من الساعة 10:00 صباحاً حتى 12:00 ليلاً")}</span>
                     </div>
                   </div>
 
@@ -1304,20 +1390,26 @@ export default function UserMenu() {
                 {/* Image Section */}
                 <div className="flex-1 w-full bg-black relative flex items-center justify-center overflow-hidden">
                   <AnimatePresence mode="wait">
-                    <motion.img
-                      key={galleryActiveIndex}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -20 }}
-                      transition={{ duration: 0.3 }}
-                      src={selectedWeddingGallery.images[galleryActiveIndex]}
-                      alt={selectedWeddingGallery.title}
-                      className="w-full h-full object-contain"
-                    />
+                    {selectedWeddingGallery.images && selectedWeddingGallery.images.length > 0 ? (
+                      <motion.img
+                        key={galleryActiveIndex}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        transition={{ duration: 0.3 }}
+                        src={selectedWeddingGallery.images[galleryActiveIndex]}
+                        alt={selectedWeddingGallery.title}
+                        className="w-full h-full object-contain"
+                      />
+                    ) : (
+                      <div className="text-zinc-500 text-xs font-['Cairo'] text-center">
+                        لم يتم رفع أي صور في هذا المجلد بعد. يمكنك رفع الصور من لوحة التحكم.
+                      </div>
+                    )}
                   </AnimatePresence>
 
                   {/* Navigation Arrows */}
-                  {selectedWeddingGallery.images.length > 1 && (
+                  {selectedWeddingGallery.images && selectedWeddingGallery.images.length > 1 && (
                     <>
                       <button
                         onClick={(e) => {
@@ -1342,7 +1434,7 @@ export default function UserMenu() {
                   )}
                   
                   {/* Image Counter */}
-                  {selectedWeddingGallery.images.length > 1 && (
+                  {selectedWeddingGallery.images && selectedWeddingGallery.images.length > 1 && (
                     <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-black/60 px-4 py-1.5 rounded-full text-[#faf7ec] text-xs font-mono font-bold tracking-widest border border-white/20 backdrop-blur-md">
                       {galleryActiveIndex + 1} / {selectedWeddingGallery.images.length}
                     </div>
