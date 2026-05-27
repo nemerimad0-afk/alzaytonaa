@@ -517,14 +517,15 @@ export default function AdminDashboard() {
     }));
   };
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, onUrl: (url: string) => void) => {
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, onUrl: (url: string) => void, sectionId?: string) => {
     const file = e.target.files?.[0];
     if (!file) return;
     const formData = new FormData();
     formData.append("file", file);
 
     try {
-      const res = await fetch("/api/upload", {
+      const urlParams = sectionId ? `?sectionId=${encodeURIComponent(sectionId)}` : "";
+      const res = await fetch(`/api/upload${urlParams}`, {
         method: "POST",
         headers: { "Authorization": `Bearer ${token}` },
         body: formData
@@ -779,7 +780,7 @@ export default function AdminDashboard() {
                         type="file"
                         className="hidden"
                         accept="image/*"
-                        onChange={(e) => handleFileUpload(e, (url) => updateCategory(cat.id, { image: url }))}
+                        onChange={(e) => handleFileUpload(e, (url) => updateCategory(cat.id, { image: url }), cat.id)}
                       />
                     </label>
                     <button onClick={() => openImageModal(cat.id, undefined, cat.title + ' food platter')} className="bg-emerald-50 text-emerald-700 p-2 rounded-xl cursor-pointer hover:bg-emerald-100 transition-colors shrink-0" title="البحث الذكي">
@@ -834,7 +835,7 @@ export default function AdminDashboard() {
                                 type="file"
                                 className="hidden"
                                 accept="image/*"
-                                onChange={(e) => handleFileUpload(e, (url) => updateItem(cat.id, item.id, { image: url }))}
+                                onChange={(e) => handleFileUpload(e, (url) => updateItem(cat.id, item.id, { image: url }), cat.id)}
                               />
                             </label>
                           </div>

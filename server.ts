@@ -73,74 +73,181 @@ if (!fs.existsSync(UPLOADS_DIR)) {
   fs.mkdirSync(UPLOADS_DIR, { recursive: true });
 }
 
-// Ensure weddings directory and album subfolders exist, and run migration of flat files
-try {
-  const weddingsDir = path.join(UPLOADS_DIR, "weddings");
-  if (!fs.existsSync(weddingsDir)) {
-    fs.mkdirSync(weddingsDir, { recursive: true });
+// Ensure weddings directory and album subfolders exist, and run migration of flat files + download external image URLs to local storage
+async function downloadExternalImage(url: string, destDirPath: string): Promise<string | null> {
+  if (!url || (!url.startsWith('http://') && !url.startsWith('https://'))) {
+    return null;
+  }
+  try {
+    const res = await fetch(url);
+    if (!res.ok) {
+      console.error(`Failed to fetch external image ${url}: status ${res.status}`);
+      return null;
+    }
+    const contentType = res.headers.get('content-type') || '';
+    let ext = '.jpg';
+    if (contentType.includes('image/png')) ext = '.png';
+    else if (contentType.includes('image/gif')) ext = '.gif';
+    else if (contentType.includes('image/webp')) ext = '.webp';
+    else if (contentType.includes('image/svg')) ext = '.svg';
+    else if (contentType.includes('image/avif')) ext = '.avif';
+    
+    // Create clean and unique filename
+    const hash = Math.random().toString(36).substring(2, 10);
+    const filename = `downloaded-${Date.now()}-${hash}${ext}`;
+    const destFilePath = path.join(destDirPath, filename);
+    
+    const arrayBuffer = await res.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    fs.writeFileSync(destFilePath, buffer);
+    console.log(`Success downloading ${url} -> ${destFilePath}`);
+    return filename;
+  } catch (err) {
+    console.error(`Error in downloadExternalImage for URL ${url}:`, err);
+    return null;
+  }
+}
+
+(async () => {
+  try {
+    const weddingsDir = path.join(UPLOADS_DIR, "weddings");
+    if (!fs.existsSync(weddingsDir)) {
+      fs.mkdirSync(weddingsDir, { recursive: true });
+    }
+
+    const galleryDataRaw = fs.readFileSync(GALLERY_FILE, 'utf-8');
+    const galleryObj = JSON.parse(galleryDataRaw) as any[];
+    let migrationModified = false;
+
+    for (const album of galleryObj) {
+      const albumDir = path.join(weddingsDir, album.id);
+      if (!fs.existsSync(albumDir)) {
+        fs.mkdirSync(albumDir, { recursive: true });
+      }
+      
+      // Ensure .keep file exists so Git tracks this folder
+      const keepFilePath = path.join(albumDir, ".keep");
+      if (!fs.existsSync(keepFilePath)) {
+        try {
+          fs.writeFileSync(keepFilePath, "");
+        } catch (err) {
+          console.error(`Failed to write .keep to ${album.id}:`, err);
+        }
+      }
+
+      const updatedImagesList = [];
+      for (const imgUrl of (album.images || [])) {
+        if (imgUrl.startsWith('/uploads/') && !imgUrl.startsWith('/uploads/weddings/')) {
+          const filename = path.basename(imgUrl);
+          const oldPath = path.join(UPLOADS_DIR, filename);
+          const newPath = path.join(albumDir, filename);
+          if (fs.existsSync(oldPath)) {
+            try {
+              fs.renameSync(oldPath, newPath);
+              console.log(`Migrated ${filename} to category subfolder ${album.id}`);
+              migrationModified = true;
+              updatedImagesList.push(`/uploads/weddings/${album.id}/${filename}`);
+              continue;
+            } catch (renameErr) {
+              console.error(`Failed to migrate ${filename}:`, renameErr);
+            }
+          }
+        } else if (imgUrl.trim().startsWith('http://') || imgUrl.trim().startsWith('https://')) {
+          const localFilename = await downloadExternalImage(imgUrl.trim(), albumDir);
+          if (localFilename) {
+            migrationModified = true;
+            updatedImagesList.push(`/uploads/weddings/${album.id}/${localFilename}`);
+            continue;
+          }
+        }
+        updatedImagesList.push(imgUrl);
+      }
+      album.images = updatedImagesList;
+    }
+
+    if (migrationModified) {
+      fs.writeFileSync(GALLERY_FILE, JSON.stringify(galleryObj, null, 2));
+      try {
+        const galleryContent = `import { WeddingGalleryItem } from "./data";\n\nexport const dynamicWeddingGalleryData: WeddingGalleryItem[] = ${JSON.stringify(galleryObj, null, 2)};\n`;
+        fs.writeFileSync(path.join(process.cwd(), 'src', 'weddingGalleryData.ts'), galleryContent);
+      } catch (e) {}
+    }
+  } catch (migErr) {
+    console.error("Wedding gallery initialization/migration failed:", migErr);
   }
 
-  const galleryDataRaw = fs.readFileSync(GALLERY_FILE, 'utf-8');
-  const galleryObj = JSON.parse(galleryDataRaw) as any[];
-  let migrationModified = false;
-
-  galleryObj.forEach(album => {
-    const albumDir = path.join(weddingsDir, album.id);
-    if (!fs.existsSync(albumDir)) {
-      fs.mkdirSync(albumDir, { recursive: true });
-    }
-    
-    // Ensure .keep file exists so Git tracks this folder
-    const keepFilePath = path.join(albumDir, ".keep");
-    if (!fs.existsSync(keepFilePath)) {
-      try {
-        fs.writeFileSync(keepFilePath, "");
-      } catch (err) {
-        console.error(`Failed to write .keep to ${album.id}:`, err);
-      }
+  try {
+    // Migration and directory setup for Menu categories & items external images
+    const menuDir = path.join(UPLOADS_DIR, "menu");
+    if (!fs.existsSync(menuDir)) {
+      fs.mkdirSync(menuDir, { recursive: true });
     }
 
-    album.images = (album.images || []).map((imgUrl: string) => {
-      if (imgUrl.startsWith('/uploads/') && !imgUrl.startsWith('/uploads/weddings/')) {
-        const filename = path.basename(imgUrl);
-        const oldPath = path.join(UPLOADS_DIR, filename);
-        const newPath = path.join(albumDir, filename);
-        if (fs.existsSync(oldPath)) {
-          try {
-            fs.renameSync(oldPath, newPath);
-            console.log(`Migrated ${filename} to category subfolder ${album.id}`);
-            migrationModified = true;
-            return `/uploads/weddings/${album.id}/${filename}`;
-          } catch (renameErr) {
-            console.error(`Failed to migrate ${filename}:`, renameErr);
+    if (fs.existsSync(DATA_FILE)) {
+      const menuDataRaw = fs.readFileSync(DATA_FILE, 'utf-8');
+      const menuObj = JSON.parse(menuDataRaw) as any[];
+      let menuMigrationModified = false;
+
+      for (const cat of menuObj) {
+        const catDir = path.join(menuDir, cat.id);
+        if (!fs.existsSync(catDir)) {
+          fs.mkdirSync(catDir, { recursive: true });
+        }
+        
+        // Ensure .keep file exists so Git tracks this folder
+        const keepFilePath = path.join(catDir, ".keep");
+        if (!fs.existsSync(keepFilePath)) {
+          fs.writeFileSync(keepFilePath, "");
+        }
+
+        // Migrate category image if it is an external URL
+        if (cat.image && (cat.image.startsWith('http://') || cat.image.startsWith('https://'))) {
+          const localFilename = await downloadExternalImage(cat.image.trim(), catDir);
+          if (localFilename) {
+            cat.image = `/uploads/menu/${cat.id}/${localFilename}`;
+            menuMigrationModified = true;
+          }
+        }
+
+        // Migrate category items images if they are external URLs
+        for (const item of (cat.items || [])) {
+          if (item.image && (item.image.startsWith('http://') || item.image.startsWith('https://'))) {
+            const localFilename = await downloadExternalImage(item.image.trim(), catDir);
+            if (localFilename) {
+              item.image = `/uploads/menu/${cat.id}/${localFilename}`;
+              menuMigrationModified = true;
+            }
           }
         }
       }
-      return imgUrl;
-    });
-  });
 
-  if (migrationModified) {
-    fs.writeFileSync(GALLERY_FILE, JSON.stringify(galleryObj, null, 2));
-    try {
-      const galleryContent = `import { WeddingGalleryItem } from "./data";\n\nexport const dynamicWeddingGalleryData: WeddingGalleryItem[] = ${JSON.stringify(galleryObj, null, 2)};\n`;
-      fs.writeFileSync(path.join(process.cwd(), 'src', 'weddingGalleryData.ts'), galleryContent);
-    } catch (e) {}
+      if (menuMigrationModified) {
+        fs.writeFileSync(DATA_FILE, JSON.stringify(menuObj, null, 2));
+        console.log("Completed menu external images download/migration!");
+      }
+    }
+  } catch (menuMigErr) {
+    console.error("Menu images initialization/migration failed:", menuMigErr);
   }
-} catch (migErr) {
-  console.error("Wedding gallery initialization/migration failed:", migErr);
-}
+})();
 
 // Set up multer for file uploads
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     const albumId = req.query.albumId as string;
+    const sectionId = req.query.sectionId as string;
     if (albumId) {
       const albumDir = path.join(process.cwd(), "public", "uploads", "weddings", albumId);
       if (!fs.existsSync(albumDir)) {
         fs.mkdirSync(albumDir, { recursive: true });
       }
       cb(null, albumDir);
+    } else if (sectionId) {
+      const sectionDir = path.join(process.cwd(), "public", "uploads", "menu", sectionId);
+      if (!fs.existsSync(sectionDir)) {
+        fs.mkdirSync(sectionDir, { recursive: true });
+      }
+      cb(null, sectionDir);
     } else {
       cb(null, UPLOADS_DIR);
     }
@@ -199,104 +306,6 @@ app.get('/api/menu', (req, res) => {
 app.put('/api/menu', authenticateToken, (req, res) => {
   try {
     fs.writeFileSync(DATA_FILE, JSON.stringify(req.body, null, 2));
-
-    // Also update src/data.ts for static exports (preserve other properties)
-    const dataTsContent = `export interface MenuItem {
-  id: string;
-  name: string;
-  price: number;
-  description?: string;
-  image?: string;
-  isPopular?: boolean;
-}
-
-export interface MenuCategory {
-  id: string;
-  title: string;
-  icon?: string;
-  image?: string;
-  items: MenuItem[];
-}
-
-export interface CateringItem {
-  id: string;
-  name: string;
-  description: string;
-  price: string;
-  approxWeight?: string;
-  image: string;
-  features: string[];
-}
-
-export interface WeddingGalleryItem {
-  id: string;
-  title: string;
-  description: string;
-  images: string[];
-  folderPath: string;
-  tag: string;
-}
-
-export interface OccasionsAlbumItem {
-  id: string;
-  src: string;
-  localPath: string;
-  title: string;
-  category: string;
-}
-
-export const cateringData: CateringItem[] = [];
-
-export const weddingGalleryData: WeddingGalleryItem[] = [];
-
-export const occasionsAlbumData: OccasionsAlbumItem[] = [
-  {
-    id: "album_1",
-    src: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=800",
-    localPath: "/src/assets/album/wedding_outdoor.jpg",
-    title: "جلسة خارجية ساحرة مع إضاءة خافتة",
-    category: "صالات خارجية"
-  },
-  {
-    id: "album_2",
-    src: "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&q=80&w=800",
-    localPath: "/src/assets/album/engagement_table.jpg",
-    title: "تنسيق طاولات الخطوبة والجاهات الكبرى",
-    category: "ديكور وطاولات"
-  },
-  {
-    id: "album_3",
-    src: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&q=80&w=800",
-    localPath: "/src/assets/album/birthday_setup.jpg",
-    title: "تنسيق زوايا أعياد ميلاد مميزة بالهواء الطلق",
-    category: "أعياد ومناسبات"
-  },
-  {
-    id: "album_4",
-    src: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=800",
-    localPath: "/src/assets/album/buffet_lux.jpg",
-    title: "بوفيه سخانات الضيافة الملكية",
-    category: "بوفيه واستقبال"
-  },
-  {
-    id: "album_5",
-    src: "https://images.unsplash.com/photo-1519225495810-7512c696505a?auto=format&fit=crop&q=80&w=800",
-    localPath: "/src/assets/album/kosha_gold.jpg",
-    title: "الكوشة والممشى الملكي المضاء بالورد والإنارة الغنية",
-    category: "الكوشة والممر"
-  },
-  {
-    id: "album_6",
-    src: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800",
-    localPath: "/src/assets/album/catering_feast.jpg",
-    title: "ولائم وقرب الضيافة الممرونة الفخمة",
-    category: "ضيافة وولائم"
-  }
-];
-
-export const menuData: MenuCategory[] = ${JSON.stringify(req.body, null, 2)};
-`;
-    fs.writeFileSync(path.join(process.cwd(), 'src', 'data.ts'), dataTsContent);
 
     res.json({ success: true });
   } catch (err) {
@@ -411,10 +420,35 @@ app.get('/api/wedding-gallery', (req, res) => {
   }
 });
 
-app.put('/api/wedding-gallery', authenticateToken, (req, res) => {
+app.put('/api/wedding-gallery', authenticateToken, async (req, res) => {
   try {
+    const albums = req.body;
+    if (Array.isArray(albums)) {
+      for (const album of albums) {
+        const albumDir = path.join(process.cwd(), "public", "uploads", "weddings", album.id);
+        if (!fs.existsSync(albumDir)) {
+          fs.mkdirSync(albumDir, { recursive: true });
+        }
+
+        if (Array.isArray(album.images)) {
+          const updatedImages = [];
+          for (const imgUrl of album.images) {
+            if (imgUrl && typeof imgUrl === 'string' && (imgUrl.trim().startsWith('http://') || imgUrl.trim().startsWith('https://'))) {
+              const filename = await downloadExternalImage(imgUrl.trim(), albumDir);
+              if (filename) {
+                updatedImages.push(`/uploads/weddings/${album.id}/${filename}`);
+                continue;
+              }
+            }
+            updatedImages.push(imgUrl);
+          }
+          album.images = updatedImages;
+        }
+      }
+    }
+
     // Write the raw saved gallery list
-    fs.writeFileSync(GALLERY_FILE, JSON.stringify(req.body, null, 2));
+    fs.writeFileSync(GALLERY_FILE, JSON.stringify(albums, null, 2));
 
     // Get the fully merged representation containing physical files on the disk
     const merged = getMergedWeddingGallery();
@@ -427,6 +461,7 @@ app.put('/api/wedding-gallery', authenticateToken, (req, res) => {
 
     res.json({ success: true, gallery: merged });
   } catch (err) {
+    console.error("Error updating wedding gallery:", err);
     res.status(500).json({ error: 'Failed to update wedding gallery data' });
   }
 });
@@ -443,9 +478,12 @@ app.post('/api/upload', authenticateToken, (req, res) => {
     }
     const file = files[0];
     const albumId = req.query.albumId as string;
+    const sectionId = req.query.sectionId as string;
     let url = '';
     if (albumId) {
       url = `/uploads/weddings/${albumId}/${file.filename}`;
+    } else if (sectionId) {
+      url = `/uploads/menu/${sectionId}/${file.filename}`;
     } else {
       url = `/uploads/${file.filename}`;
     }
