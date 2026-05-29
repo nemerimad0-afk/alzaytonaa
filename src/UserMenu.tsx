@@ -38,7 +38,6 @@ import {
 } from "./data";
 import { dynamicWeddingGalleryData } from "./weddingGalleryData";
 import { SiteSettings } from "./settingsTypes";
-import AdBanner from "./components/AdBanner";
 
 const iconMap: Record<string, React.ReactNode> = {
   Flame: <Flame size={22} className="text-amber-500 animate-pulse" />,
@@ -1751,8 +1750,6 @@ export default function UserMenu() {
             </motion.div>
           )}
         </AnimatePresence>
-
-        <AdBanner />
       </div>
     </>
   );
