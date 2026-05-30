@@ -57,9 +57,9 @@ const fallbackCategoryImages: Record<string, string> = {
   crepes:
     "https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&q=80&w=600",
   waffles:
-    "/waffle.png",
+    "./waffle.png",
   shisha:
-    "/shisha.png",
+    "./shisha.png",
   pancakes:
     "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&q=80&w=600",
   milkshakes:
@@ -357,7 +357,7 @@ export default function UserMenu() {
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
-                  src={resolveSetting("logoUrl", "/logo.png")}
+                  src={resolveSetting("logoUrl", "./logo.png")}
                   alt="Al Zaytouna Emblem"
                   className="h-28 sm:h-36 w-auto object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.8)]"
                   onError={(e) => {
@@ -515,7 +515,7 @@ export default function UserMenu() {
               title="الرجوع للرئيسية"
             >
               <img
-                src={resolveSetting("logoUrl", "/logo.png")}
+                src={resolveSetting("logoUrl", "./logo.png")}
                 alt="الزيتونة"
                 className="h-10 sm:h-12 w-auto object-contain"
               />
@@ -577,7 +577,7 @@ export default function UserMenu() {
                         className="p-3 bg-white/[0.02] border border-[#d4af37]/20 rounded-full shadow-2xl backdrop-blur-md"
                       >
                         <img
-                          src={resolveSetting("logoUrl", "/logo.png")}
+                          src={resolveSetting("logoUrl", "./logo.png")}
                           alt="Al Zaytouna Logo"
                           className="h-28 sm:h-36 w-auto object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]"
                           onError={(e) => {
@@ -792,7 +792,7 @@ export default function UserMenu() {
                         className="p-3 bg-white/[0.02] border border-[#d4af37]/20 rounded-full shadow-2xl backdrop-blur-md"
                       >
                         <img
-                          src={resolveSetting("logoUrl", "/logo.png")}
+                          src={resolveSetting("logoUrl", "./logo.png")}
                           alt="Al Zaytouna Logo"
                           className="h-28 sm:h-36 w-auto object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]"
                           onError={(e) => {
@@ -1042,7 +1042,7 @@ export default function UserMenu() {
                       className="p-3 bg-white/[0.02] border border-[#d4af37]/20 rounded-full shadow-2xl backdrop-blur-md"
                     >
                       <img
-                        src={resolveSetting("logoUrl", "/logo.png")}
+                        src={resolveSetting("logoUrl", "./logo.png")}
                         alt="Al Zaytouna Logo"
                         className="h-28 sm:h-36 w-auto object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]"
                         onError={(e) => {
@@ -1178,7 +1178,7 @@ export default function UserMenu() {
                       className="p-3 bg-white/[0.02] border border-[#d4af37]/20 rounded-full shadow-2xl backdrop-blur-md"
                     >
                       <img
-                        src="/logo.png"
+                        src="./logo.png"
                         alt="Al Zaytouna Logo"
                         className="h-28 sm:h-36 w-auto object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)]"
                         onError={(e) => {
@@ -1291,7 +1291,7 @@ export default function UserMenu() {
                 <div className="relative z-10 max-w-4xl mx-auto">
                   <div className="flex justify-center mb-4">
                     <img
-                      src={resolveSetting("logoUrl", "/logo.png")}
+                      src={resolveSetting("logoUrl", "./logo.png")}
                       alt="الزيتونة"
                       className="w-16 h-16 object-contain"
                     />

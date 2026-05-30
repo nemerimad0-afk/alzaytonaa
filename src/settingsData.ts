@@ -26,5 +26,5 @@ export const settingsData: SiteSettings = {
   "menuBg": "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=1600",
   "weddingBg": "https://i.ytimg.com/vi/IhCmfBQiRW8/maxresdefault.jpg",
   "cateringBg": "https://asif.org/wp-content/uploads/2023/03/Untitled-Capture9112-scaled.jpg",
-  "logoUrl": "/logo.png"
+  "logoUrl": "./logo.png"
 };
