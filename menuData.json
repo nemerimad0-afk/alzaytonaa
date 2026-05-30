@@ -3,7 +3,7 @@
     "id": "grills",
     "title": "الوجبات الرئيسية",
     "icon": "Flame",
-    "image": "/uploads/menu/grills/downloaded-1780140582006-r4gsg9o8.jpg",
+    "image": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&q=80&w=600",
     "items": [
       {
         "id": "meal1",
@@ -56,7 +56,7 @@
     "id": "pastries_pizza",
     "title": "المعجنات والبيتزا",
     "icon": "ChefHat",
-    "image": "/uploads/menu/pastries_pizza/downloaded-1780140747529-co3mh17s.jpg",
+    "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&q=80&w=600",
     "items": [
       {
         "id": "pp_1",
@@ -100,7 +100,7 @@
     "id": "waffles",
     "title": "الوافل",
     "icon": "CakeSlice",
-    "image": "/waffle.png",
+    "image": "https://images.unsplash.com/photo-1568051243851-f9b1328c304c?auto=format&fit=crop&q=80&w=600",
     "items": [
       {
         "id": "wf_classic",
@@ -138,7 +138,7 @@
     "id": "crepes",
     "title": "الكريب",
     "icon": "CakeSlice",
-    "image": "/uploads/menu/crepes/downloaded-1780140589517-oyt7jivw.jpg",
+    "image": "https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&q=80&w=600",
     "items": [
       {
         "id": "cr_classic",
@@ -175,7 +175,7 @@
     "id": "pancakes",
     "title": "البان كيك",
     "icon": "CakeSlice",
-    "image": "/uploads/menu/pancakes/downloaded-1780140589810-4z5bbefj.jpg",
+    "image": "https://images.unsplash.com/photo-1528207776546-365bb710ee93?auto=format&fit=crop&q=80&w=600",
     "items": [
       {
         "id": "pc_cup",
@@ -220,7 +220,7 @@
     "id": "fashafesh",
     "title": "الفشافيش",
     "icon": "CakeSlice",
-    "image": "/uploads/menu/fashafesh/downloaded-1780140591368-kh27qahk.jpg",
+    "image": "https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&q=80&w=600",
     "items": [
       {
         "id": "ff_classic",
@@ -265,7 +265,7 @@
     "id": "ice_cream",
     "title": "المثلجات",
     "icon": "IceCream",
-    "image": "/uploads/menu/ice_cream/downloaded-1780140594849-k678ls8o.jpg",
+    "image": "https://images.unsplash.com/photo-1563805042-7684c8a9e9ce?auto=format&fit=crop&q=80&w=600",
     "items": [
       {
         "id": "ic_chocolate",
@@ -287,7 +287,7 @@
     "id": "shisha",
     "title": "الأراجيل",
     "icon": "Flame",
-    "image": "/shisha.png",
+    "image": "https://images.unsplash.com/photo-1542618956-6548a3fb12ba?auto=format&fit=crop&q=80&w=600",
     "items": [
       {
         "id": "sh_nakhla",
@@ -345,7 +345,7 @@
     "id": "hot_drinks",
     "title": "المشروبات الساخنة",
     "icon": "Coffee",
-    "image": "/uploads/menu/hot_drinks/downloaded-1780140582362-grjcnk6s.jpg",
+    "image": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&q=80&w=600",
     "items": [
       {
         "id": "hd_single",
@@ -415,14 +415,14 @@
         "name": "وايت موكا",
         "price": 14,
         "description": "اسبريسو ساخن ناعم ومخلوط بالشوكولاتة البيضاء والكاكاو الممتاز.",
-        "image": "https://images.unsplash.com/photo-1461023717502-44a3698b8f93?auto=format&fit=crop&q=80&w=300"
+        "image": "https://images.unsplash.com/photo-1570968915860-54d5c301fc9f?auto=format&fit=crop&q=80&w=300"
       },
       {
         "id": "hd_affogatonutella",
         "name": "افوكاتو نوتيلا",
         "price": 14,
         "description": "مزيج من جيلاتو الفانيليا الإيطالية، إسبريسو ساخن، وصوص النوتيلا الذائب.",
-        "image": "https://images.unsplash.com/photo-1594911774802-8822a707c993?auto=format&fit=crop&q=80&w=300"
+        "image": "https://images.unsplash.com/photo-1562376502-0ac40ae8a105?auto=format&fit=crop&q=80&w=300"
       },
       {
         "id": "hd_affogatopistachio",
@@ -458,7 +458,7 @@
         "name": "قهوه عربية",
         "price": 10,
         "description": "قهوة عربية أصيلة معدة من أجود أنواع البن اليمني ومعطرة برائحة الهيل الفواحة والزعفران.",
-        "image": "https://images.unsplash.com/photo-1599390809312-5bd108a4cfec?auto=format&fit=crop&q=80&w=300",
+        "image": "https://images.unsplash.com/photo-1510972527921-ce0415891ddf?auto=format&fit=crop&q=80&w=300",
         "isPopular": true
       },
       {
@@ -481,7 +481,7 @@
     "id": "cold_drinks",
     "title": "المشروبات الباردة",
     "icon": "CupSoda",
-    "image": "/uploads/menu/cold_drinks/downloaded-1780140586412-mwovl8hv.jpg",
+    "image": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&q=80&w=600",
     "items": [
       {
         "id": "cd_icedcoffee",
@@ -531,7 +531,7 @@
         "name": "ايس اناناس",
         "price": 14,
         "description": "عصير الاناناس الاستوائي البارد الكثيف والمنعش والمحبوب في أيام الصيف.",
-        "image": "https://images.unsplash.com/photo-1532454516781-be9ae21efbde?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/cold_drinks/downloaded-1780143596782-gcq1es1h.jpg"
       }
     ]
   },
@@ -539,7 +539,7 @@
     "id": "fresh_drinks",
     "title": "المشروبات الطازجة",
     "icon": "CupSoda",
-    "image": "/uploads/menu/fresh_drinks/downloaded-1780140593002-m3hf7vr0.jpg",
+    "image": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&q=80&w=600",
     "items": [
       {
         "id": "fd_lemonade",
@@ -569,7 +569,7 @@
     "id": "milkshakes",
     "title": "ملك شيك",
     "icon": "IceCream",
-    "image": "/uploads/menu/milkshakes/downloaded-1780140593233-v40x7fmh.jpg",
+    "image": "https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&q=80&w=600",
     "items": [
       {
         "id": "ms_chocolate",
@@ -635,7 +635,7 @@
     "id": "mojitos",
     "title": "الموهيتو",
     "icon": "CupSoda",
-    "image": "/uploads/menu/mojitos/downloaded-1780140593737-j1g1c4sh.jpg",
+    "image": "https://images.unsplash.com/photo-1551538827-9c037cb4f32a?auto=format&fit=crop&q=80&w=600",
     "items": [
       {
         "id": "mj_lemon",
@@ -678,7 +678,7 @@
         "name": "موهيتو بلو اناناس",
         "price": 16,
         "description": "موهيتو بلونه الأزرق الساحر المأخود من بلو كوراساو ممزوج بالأنناس الاستوائي البارد والثلج.",
-        "image": "https://images.unsplash.com/photo-1532454516781-be9ae21efbde?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/mojitos/downloaded-1780143596890-kpm2cj0i.jpg"
       },
       {
         "id": "mj_xl_mix",
@@ -715,7 +715,7 @@
     "id": "soft_drinks",
     "title": "سوفت درنكس",
     "icon": "CupSoda",
-    "image": "/uploads/menu/soft_drinks/downloaded-1780140594343-b8y418g7.jpg",
+    "image": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&q=80&w=600",
     "items": [
       {
         "id": "sd_cola_sprite",
@@ -743,7 +743,7 @@
         "name": "فيروز اناناس",
         "price": 7,
         "description": "مشروب الشعير الفوار الفاخر والمنشط بنكهة الأناناس الرائعة.",
-        "image": "https://images.unsplash.com/photo-1532454516781-be9ae21efbde?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/soft_drinks/downloaded-1780143597000-0k6fh30c.jpg"
       },
       {
         "id": "sd_bavaria",
