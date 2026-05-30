@@ -57,7 +57,9 @@ const fallbackCategoryImages: Record<string, string> = {
   crepes:
     "https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&q=80&w=600",
   waffles:
-    "https://images.unsplash.com/photo-1562376502-0ac40ae8a105?auto=format&fit=crop&q=80&w=600",
+    "/waffle.png",
+  shisha:
+    "/shisha.png",
   pancakes:
     "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&q=80&w=600",
   milkshakes:

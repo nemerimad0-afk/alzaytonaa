@@ -3,14 +3,14 @@
     "id": "grills",
     "title": "الوجبات الرئيسية",
     "icon": "Flame",
-    "image": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&q=80&w=600",
+    "image": "/uploads/menu/grills/downloaded-1780140582006-r4gsg9o8.jpg",
     "items": [
       {
         "id": "meal1",
         "name": "كباب على الفحم",
         "price": 45,
         "description": "أسياخ كباب مفرومة من لحم الغنم البلدي الطازج مع البصل والبقدونس والبهارات، مشوية على الفحم الساخن وتقدم مع الخضار المشوية والخبز الطازج.",
-        "image": "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&q=80&w=300",
+        "image": "/uploads/menu/grills/downloaded-1780140582146-8rv2zjyv.jpg",
         "isPopular": true
       },
       {
@@ -18,7 +18,7 @@
         "name": "كباب فرش الهوا",
         "price": 55,
         "description": "كباب متميز محضر بخلطتنا الخاصة والمبتكرة، يقدم ساخناً من أسياخ الفحم بطعم ونكهة فرش الهوا الساحرة.",
-        "image": "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=300",
+        "image": "/uploads/menu/grills/downloaded-1780140582204-pocilnmt.jpg",
         "isPopular": true
       },
       {
@@ -26,201 +26,73 @@
         "name": "شيش طاووق",
         "price": 35,
         "description": "صدور دجاج طازجة متبلة بخلطة الليمون والثوم والبهارات الشرقية، مشوية ببطء لمستوى طراوة استثنائي مع البصل والفلفل الحار.",
-        "image": "https://images.unsplash.com/photo-1608897013039-887f21d8c804?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/grills/downloaded-1780140582297-z6emmquz.jpg"
+      },
+      {
+        "id": "meal4",
+        "name": "صينية كفتة شخص واحد",
+        "price": 40,
+        "description": "صينية كفتة كلاسيكية بالخضار وصلصة البندورة الغنية المحمرة بالفرن.",
+        "image": "https://images.unsplash.com/photo-1544956321-7f8ae2641040?auto=format&fit=crop&q=80&w=300",
+        "isPopular": true
+      },
+      {
+        "id": "meal_kofta_2",
+        "name": "صينية كفتة شخصين",
+        "price": 70,
+        "description": "صينية كفتة كلاسيكية بالخضار وصلصة البندورة الغنية المحمرة بالفرن، تكفي لشخصين.",
+        "image": "https://images.unsplash.com/photo-1544956321-7f8ae2641040?auto=format&fit=crop&q=80&w=300"
+      },
+      {
+        "id": "meal_kofta_4",
+        "name": "صينية كفتة ٤ أشخاص",
+        "price": 140,
+        "description": "صينية كفتة كلاسيكية بالخضار وصلصة البندورة الغنية المحمرة بالفرن، حجم عائلي يكفي لأربعة أشخاص.",
+        "image": "https://images.unsplash.com/photo-1544956321-7f8ae2641040?auto=format&fit=crop&q=80&w=300"
       }
     ]
   },
   {
-    "id": "hot_drinks",
-    "title": "المشروبات الساخنة",
-    "icon": "Coffee",
-    "image": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&q=80&w=600",
+    "id": "pastries_pizza",
+    "title": "المعجنات والبيتزا",
+    "icon": "ChefHat",
+    "image": "/uploads/menu/pastries_pizza/downloaded-1780140747529-co3mh17s.jpg",
     "items": [
       {
-        "id": "hd_single",
-        "name": "اسبريسو سنجل",
-        "price": 8,
-        "description": "جرعة مركزة من أجود حبوب البن المحمصة الطازجة برغوة غنية وكثيفة.",
-        "image": "https://images.unsplash.com/photo-1510972527921-ce0415891ddf?auto=format&fit=crop&q=80&w=300"
-      },
-      {
-        "id": "hd_double",
-        "name": "اسبريسو دبل",
-        "price": 12,
-        "description": "جرعة مزدوجة وقوية من الإسبريسو الإيطالي الفاخر لنشاط مضاعف.",
-        "image": "https://images.unsplash.com/photo-1498804103079-a6351b050096?auto=format&fit=crop&q=80&w=300"
-      },
-      {
-        "id": "hd_americano",
-        "name": "امريكانو",
-        "price": 10,
-        "description": "إسبريسو مميز مخفف بالماء الساخن على الطريقة الأمريكية الكلاسيكية لتركيز مثالي ونكهة ممتدة.",
-        "image": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=300"
-      },
-      {
-        "id": "hd_cafelatte",
-        "name": "كافي لاتيه",
-        "price": 12,
-        "description": "مزيج غني من قهوة الإسبريسو الإيطالية والحليب المبخر الرغوي السلس.",
-        "image": "https://images.unsplash.com/photo-1570968915860-54d5c301fc9f?auto=format&fit=crop&q=80&w=300"
-      },
-      {
-        "id": "hd_tealatte",
-        "name": "شاي لاتيه",
-        "price": 12,
-        "description": "توليفة شاي ممتازة مع الحليب المبخر والرغوة المخفوقة بلطف.",
-        "image": "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&q=80&w=300"
-      },
-      {
-        "id": "hd_caramel",
-        "name": "كراميل",
-        "price": 12,
-        "description": "لاتيه ساخن محلى بصوص الكراميل الطبيعي الدافئ ولذيذ المذاق.",
-        "image": "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&q=80&w=300"
-      },
-      {
-        "id": "hd_french",
-        "name": "فرنش بندق",
-        "price": 12,
-        "description": "قهوة فرنسية ناعمة برائحة ونكهة البندق المحمص الفاخر.",
-        "image": "https://images.unsplash.com/photo-1515694590185-73647ba02c10?auto=format&fit=crop&q=80&w=300"
-      },
-      {
-        "id": "hd_lotus",
-        "name": "لوتوس",
-        "price": 14,
-        "description": "مشروب ساخن غني ومميز محلى بزبدة وبسكويت اللوتس البلجيكي الشهير.",
-        "image": "https://images.unsplash.com/photo-1579954115545-a95591f28bfc?auto=format&fit=crop&q=80&w=300"
-      },
-      {
-        "id": "hd_mocha",
-        "name": "موكا",
-        "price": 14,
-        "description": "مزيج من قهوة الاسبريسو والحليب المبخر مع لمسة فاخرة من الكاكاو السويسري والكريمة.",
-        "image": "https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&q=80&w=300"
-      },
-      {
-        "id": "hd_whitemocha",
-        "name": "وايت موكا",
-        "price": 14,
-        "description": "اسبريسو ساخن ناعم ومخلوط بالشوكولاتة البيضاء والكاكاو الممتاز.",
-        "image": "https://images.unsplash.com/photo-1461023717502-44a3698b8f93?auto=format&fit=crop&q=80&w=300"
-      },
-      {
-        "id": "hd_affogatonutella",
-        "name": "افوكاتو نوتيلا",
-        "price": 14,
-        "description": "مزيج من جيلاتو الفانيليا الإيطالية، إسبريسو ساخن، وصوص النوتيلا الذائب.",
-        "image": "https://images.unsplash.com/photo-1594911774802-8822a707c993?auto=format&fit=crop&q=80&w=300"
-      },
-      {
-        "id": "hd_affogatopistachio",
-        "name": "افوكاتو فستق حلبي",
-        "price": 16,
-        "description": "مزيج دافئ وبارد يجمع الآيس كريم مع الاسبريسو وزبدة الفستق الحلبي المقرمشة ورقات الرمان والمكسرات.",
-        "image": "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&q=80&w=300",
+        "id": "pp_1",
+        "name": "بيتزا مارجاريتا",
+        "price": 25,
+        "description": "عجينة إيطالية مقرمشة تُعجن يدوياً وتُخبز في درجات حرارة عالية، تغمرها صلصة الطماطم الغنية مع طبقة سخية من جبنة الموزاريلا الفاخرة ولمسات من الريحان المعطر.",
+        "image": "/uploads/menu/pastries_pizza/downloaded-1780140747636-54ko0thh.jpg",
         "isPopular": true
       },
       {
-        "id": "hd_sahlab",
-        "name": "سحلب",
-        "price": 8,
-        "description": "مشروب السحلب الشتوي دافىء، غني بالقرفة، جوز الهند، والمكسرات المحمصة الطازجة.",
-        "image": "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&q=80&w=300"
+        "id": "pp_veg",
+        "name": "بيتزا الخضار",
+        "price": 30,
+        "description": "تشكيلة غنية من الخضار الطازجة مع صلصة الطماطم وجبنة الموزاريلا الذائبة على عجينة مقرمشة.",
+        "image": "/uploads/menu/pastries_pizza/downloaded-1780141368116-bb3qa25h.jpg"
       },
       {
-        "id": "hd_nescafe",
-        "name": "نسكافيه",
-        "price": 8,
-        "description": "كوب نسكافيه كلاسيكي غني برغوة الحليب اللطيفة الكثيفة.",
-        "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=300"
+        "id": "pp_2",
+        "name": "منقوشة زعتر",
+        "price": 20,
+        "description": "على عجينة طرية وذهبية نفرد مزيجاً رائعاً من الزعتر الفلسطيني المعطر والمغمور بزيت الزيتون البكر الممتاز.",
+        "image": "/uploads/menu/pastries_pizza/downloaded-1780140747695-d0ahjifd.jpg"
       },
       {
-        "id": "hd_mixedherbs",
-        "name": "زهورات مكس",
-        "price": 7,
-        "description": "توليفة أعشاب برية طبيعية مهدئة ومنقاة بعناية لراحة مطلقة وصحة مثالية للجسد.",
-        "image": "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&q=80&w=300"
+        "id": "pp_cheese",
+        "name": "فطيرة جبنة مكس",
+        "price": 20,
+        "description": "مزيج لذيذ من الأجبان الفاخرة المخبوزة داخل عجينة طرية وذهبية.",
+        "image": "/uploads/menu/pastries_pizza/downloaded-1780141368249-73t6oi1f.jpg"
       },
       {
-        "id": "hd_arabiccoffee",
-        "name": "قهوه عربية",
-        "price": 10,
-        "description": "قهوة عربية أصيلة معدة من أجود أنواع البن اليمني ومعطرة برائحة الهيل الفواحة والزعفران.",
-        "image": "https://images.unsplash.com/photo-1599390809312-5bd108a4cfec?auto=format&fit=crop&q=80&w=300",
-        "isPopular": true
-      },
-      {
-        "id": "hd_tea",
-        "name": "شاي",
-        "price": 7,
-        "description": "شاي أسود سيلاني منقى ومخمر ببطء، يقدم ساخناً مع النعناع البكر أو الميرمية البرية.",
-        "image": "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&q=80&w=300"
-      },
-      {
-        "id": "hd_greentea",
-        "name": "شاي اخضر طبيعي 100%",
-        "price": 10,
-        "description": "أوراق الشاي الأخضر العضوية الطبيعية، مثالي للصحة ومجدد كلي للنشاط والاسترخاء.",
-        "image": "https://images.unsplash.com/photo-1627435601361-ec25f5b1d0e5?auto=format&fit=crop&q=80&w=300"
-      }
-    ]
-  },
-  {
-    "id": "cold_drinks",
-    "title": "المشروبات الباردة",
-    "icon": "CupSoda",
-    "image": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&q=80&w=600",
-    "items": [
-      {
-        "id": "cd_icedcoffee",
-        "name": "ايس كوفي",
-        "price": 10,
-        "description": "قهوة مثلجة مع الحليب وصوص الشوكولاتة والكراميل والثلج المجروش لمذاق صيفي دافئ وبارد.",
-        "image": "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&q=80&w=300"
-      },
-      {
-        "id": "cd_icedamericano",
-        "name": "ايس امريكانو",
-        "price": 10,
-        "description": "جرعة إسبريسو مزدوجة فخمة مخففة بالماء البارد ومكعبات الثلج لنقاء تام وانتعاش ممتد.",
-        "image": "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&q=80&w=300"
-      },
-      {
-        "id": "cd_icedlatye",
-        "name": "ايس لاتيه",
-        "price": 12,
-        "description": "مزيج منعش من قهوة الاسبريسو الغنية مع الحليب البارد الدسم ومكعبات الثلج.",
-        "image": "https://images.unsplash.com/photo-1553909489-cd47e0907980?auto=format&fit=crop&q=80&w=300",
-        "isPopular": true
-      },
-      {
-        "id": "cd_passiflora",
-        "name": "ايس مسفلورا",
-        "price": 12,
-        "description": "مشروب مثلج بنكهة الباشن فروت (المسفلورا) المنعشة الفائحة بالحيوية والاستجمام.",
-        "image": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&q=80&w=300"
-      },
-      {
-        "id": "cd_coconut",
-        "name": "ايس جوز هند",
-        "price": 12,
-        "description": "قهوة باردة فخمة مع لمسة ناعمة لحليب جوز الهند ورقائقه اللذيذة والثلج.",
-        "image": "https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&q=80&w=300"
-      },
-      {
-        "id": "cd_peach_tea",
-        "name": "ايس تي خوخ",
-        "price": 12,
-        "description": "شاي أسود مثلج بنكهة الخوخ الطبيعي اللطيفة وشرائح الليمون لانتعاش لا يصدق.",
-        "image": "https://images.unsplash.com/photo-1497515114629-f71d768fd07c?auto=format&fit=crop&q=80&w=300"
-      },
-      {
-        "id": "cd_pineapple",
-        "name": "ايس اناناس",
-        "price": 14,
-        "description": "عصير الاناناس الاستوائي البارد الكثيف والمنعش والمحبوب في أيام الصيف.",
-        "image": "https://images.unsplash.com/photo-1532454516781-be9ae21efbde?auto=format&fit=crop&q=80&w=300"
+        "id": "pp_meat",
+        "name": "فطيرة لحم بالعجين",
+        "price": 20,
+        "description": "لحمة غنم مفرومة ومتبلة ببهارات شامية دافئة مع البندورة والبصل، مخبوزة على عجينة رقيقة ومقرمشة.",
+        "image": "/uploads/menu/pastries_pizza/downloaded-1780141368303-zm0dvjp4.jpg"
       }
     ]
   },
@@ -228,14 +100,14 @@
     "id": "waffles",
     "title": "الوافل",
     "icon": "CakeSlice",
-    "image": "https://images.unsplash.com/photo-1562376502-0ac40ae8a105?auto=format&fit=crop&q=80&w=600",
+    "image": "/waffle.png",
     "items": [
       {
         "id": "wf_classic",
         "name": "وافل كلاسيك",
         "price": 22,
         "description": "قطع الوافل البلجيكي الذهبي الساخن والمقرمش، مغطى برشة من السكر الناعم وصوص العسل أو الشوكولاتة.",
-        "image": "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/waffles/downloaded-1780140587973-jq0jiow1.jpg"
       },
       {
         "id": "wf_oreo",
@@ -250,14 +122,14 @@
         "name": "وافل لوتوس",
         "price": 25,
         "description": "وافل مقرمش وممتاز مغطى بسخاء بزبدة اللوتس الدافئة ورقائق بسكويت اللوتس المقرمش البديع.",
-        "image": "https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/waffles/downloaded-1780140589402-ia9iixjc.jpg"
       },
       {
         "id": "wf_alzeitouna",
         "name": "وافل الزيتونة",
         "price": 30,
         "description": "الوافل الملكي الفخم من مطعمنا؛ تشكيلة فاخرة من الفواكه الموسمية وصوص النكهات الثلاثية، الشوكولاتة والآيس كريم الغني.",
-        "image": "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&q=80&w=300",
+        "image": "/uploads/menu/waffles/downloaded-1780140589455-o9i8ctqz.jpg",
         "isPopular": true
       }
     ]
@@ -266,35 +138,35 @@
     "id": "crepes",
     "title": "الكريب",
     "icon": "CakeSlice",
-    "image": "https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&q=80&w=600",
+    "image": "/uploads/menu/crepes/downloaded-1780140589517-oyt7jivw.jpg",
     "items": [
       {
         "id": "cr_classic",
         "name": "كريب كلاسيك",
         "price": 22,
         "description": "كريب فرنسي رقيق للغاية ومطبوخ بعناية، مغطى بمزيج من خطوط الشوكولاتة البلجيكية الثلاثة الفاخرة.",
-        "image": "https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/crepes/downloaded-1780140589582-f9emdd5l.jpg"
       },
       {
         "id": "cr_lotus",
         "name": "كريب لوتوس",
         "price": 25,
         "description": "الكريب الرقيق الساخن محشو ومغطى بزبدة بسكويت لوتس الشهية والمموجة ورقاقات البسكويت الباردة.",
-        "image": "https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/crepes/downloaded-1780140589643-etaanrlz.jpg"
       },
       {
         "id": "cr_oreo",
         "name": "كريب اوريو",
         "price": 25,
         "description": "كريب ناعم ممتلئ بقطع بسكويت أوريو المفتتة والشوكولاتة والآيس كريم المتكامل اللذيذ.",
-        "image": "https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/crepes/downloaded-1780140589696-x1wiwhdu.jpg"
       },
       {
         "id": "cr_alzeitouna",
         "name": "كريب زيتونة",
         "price": 30,
         "description": "كريب الزيتونة الملكي المميز المليء بالفواكه الطازجة وصوصات الشوكولاتة والآيس كريم الغني.",
-        "image": "https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&q=80&w=300",
+        "image": "/uploads/menu/crepes/downloaded-1780140589756-jcoq6cal.jpg",
         "isPopular": true
       }
     ]
@@ -303,14 +175,14 @@
     "id": "pancakes",
     "title": "البان كيك",
     "icon": "CakeSlice",
-    "image": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&q=80&w=600",
+    "image": "/uploads/menu/pancakes/downloaded-1780140589810-4z5bbefj.jpg",
     "items": [
       {
         "id": "pc_cup",
         "name": "بان كيك كاسة",
         "price": 12,
         "description": "قطع البان كيك القطنية والشهية في كأس زجاجي مميز مع شوكولاتة ذائبة للتناول المريح السلس.",
-        "image": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&q=80&w=300",
+        "image": "/uploads/menu/pancakes/downloaded-1780140589876-0qeoxsr0.jpg",
         "isPopular": true
       },
       {
@@ -318,7 +190,7 @@
         "name": "بان كيك كلاسيك",
         "price": 20,
         "description": "طبقات متراصة من البان كيك الكلاسيكي الساخن مع الزبدة وخيط من عسل القيقب الطبيعي الفاخر.",
-        "image": "https://images.unsplash.com/photo-1528207776546-365bb710ee93?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/pancakes/downloaded-1780140589926-iwhwmlbj.jpg"
       },
       {
         "id": "pc_lotus",
@@ -332,14 +204,14 @@
         "name": "بان كيك اوريو",
         "price": 23,
         "description": "من المفضلات المحبوبة للغاية، يعلوه صوص الشوكولاتة وحبات الأوريو المطحونة والكراميل والبندق.",
-        "image": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/pancakes/downloaded-1780140591256-y7kmpny5.jpg"
       },
       {
         "id": "pc_alzeitouna",
         "name": "بان كيك الزيتونة",
         "price": 30,
         "description": "برج البان كيك الملكي الفاخر بثمانية طبقات تفيض بالشوكولاتة، الفستق، التوت والآيس كريم.",
-        "image": "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&q=80&w=300",
+        "image": "/uploads/menu/pancakes/downloaded-1780140591316-uk058pew.jpg",
         "isPopular": true
       }
     ]
@@ -348,28 +220,28 @@
     "id": "fashafesh",
     "title": "الفشافيش",
     "icon": "CakeSlice",
-    "image": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&q=80&w=600",
+    "image": "/uploads/menu/fashafesh/downloaded-1780140591368-kh27qahk.jpg",
     "items": [
       {
         "id": "ff_classic",
         "name": "فشافيش كلاسيك",
         "price": 20,
         "description": "لقيمات الفشافيش الهشة واللذيذة مغطاة بصوص الشوكولاتة التقليدي الفاخر.",
-        "image": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/fashafesh/downloaded-1780140591431-d9lu5cr3.jpg"
       },
       {
         "id": "ff_lotus",
         "name": "فشافيش لوتوس",
         "price": 23,
         "description": "مكعبات الفشافيش الهوائية واللذيذة مغمورة بزبدة لوتس كرانشي الرائعة وبقرمشة لا مثيل لها.",
-        "image": "https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/fashafesh/downloaded-1780140591482-yavgaou5.jpg"
       },
       {
         "id": "ff_oreo",
         "name": "فشافيش اوريو",
         "price": 23,
         "description": "كرات فشافيش مشوية بعناية مغموسة بالكاكاو والكراميل وصوص شوكولاتة أوريو المغري.",
-        "image": "https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&q=80&w=300",
+        "image": "/uploads/menu/fashafesh/downloaded-1780140591541-qescerwc.jpg",
         "isPopular": true
       },
       {
@@ -377,7 +249,7 @@
         "name": "فشافيش فستق حلبي",
         "price": 25,
         "description": "فشافيش فاخرة تفيض بصوص الفستق الحلبي الملكي والفستق المطحون ناعماً.",
-        "image": "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/fashafesh/downloaded-1780140591594-19mq5g9a.jpg"
       },
       {
         "id": "ff_alzeitouna",
@@ -390,10 +262,32 @@
     ]
   },
   {
+    "id": "ice_cream",
+    "title": "المثلجات",
+    "icon": "IceCream",
+    "image": "/uploads/menu/ice_cream/downloaded-1780140594849-k678ls8o.jpg",
+    "items": [
+      {
+        "id": "ic_chocolate",
+        "name": "مثلجات شوكليت",
+        "price": 12,
+        "description": "كرات جيلاتو كريمية دسمة ومبردة غنية بطعم الموكا والشوكولاتة والكاكاو السويسري الفاخر والمكسرات.",
+        "image": "/uploads/menu/ice_cream/downloaded-1780140594906-yinrszy5.jpg"
+      },
+      {
+        "id": "ic_vanilla",
+        "name": "مثلجات فانيلا",
+        "price": 12,
+        "description": "جيلاتو الفانيليا الإيطالية فائقة النعومة والطعم السلس الكلاسيكي ورشات جوز الهند الكثيف البديع.",
+        "image": "/uploads/menu/ice_cream/downloaded-1780140594966-5xlfa3te.jpg"
+      }
+    ]
+  },
+  {
     "id": "shisha",
     "title": "الأراجيل",
     "icon": "Flame",
-    "image": "https://images.unsplash.com/photo-1527838832700-50592524df7e?auto=format&fit=crop&q=80&w=600",
+    "image": "/shisha.png",
     "items": [
       {
         "id": "sh_nakhla",
@@ -448,24 +342,218 @@
     ]
   },
   {
+    "id": "hot_drinks",
+    "title": "المشروبات الساخنة",
+    "icon": "Coffee",
+    "image": "/uploads/menu/hot_drinks/downloaded-1780140582362-grjcnk6s.jpg",
+    "items": [
+      {
+        "id": "hd_single",
+        "name": "اسبريسو سنجل",
+        "price": 8,
+        "description": "جرعة مركزة من أجود حبوب البن المحمصة الطازجة برغوة غنية وكثيفة.",
+        "image": "https://images.unsplash.com/photo-1510972527921-ce0415891ddf?auto=format&fit=crop&q=80&w=300"
+      },
+      {
+        "id": "hd_double",
+        "name": "اسبريسو دبل",
+        "price": 12,
+        "description": "جرعة مزدوجة وقوية من الإسبريسو الإيطالي الفاخر لنشاط مضاعف.",
+        "image": "/uploads/menu/hot_drinks/downloaded-1780140583059-330cx4vy.jpg"
+      },
+      {
+        "id": "hd_americano",
+        "name": "امريكانو",
+        "price": 10,
+        "description": "إسبريسو مميز مخفف بالماء الساخن على الطريقة الأمريكية الكلاسيكية لتركيز مثالي ونكهة ممتدة.",
+        "image": "/uploads/menu/hot_drinks/downloaded-1780140583111-oenpvvcm.jpg"
+      },
+      {
+        "id": "hd_cafelatte",
+        "name": "كافي لاتيه",
+        "price": 12,
+        "description": "مزيج غني من قهوة الإسبريسو الإيطالية والحليب المبخر الرغوي السلس.",
+        "image": "https://images.unsplash.com/photo-1570968915860-54d5c301fc9f?auto=format&fit=crop&q=80&w=300"
+      },
+      {
+        "id": "hd_tealatte",
+        "name": "شاي لاتيه",
+        "price": 12,
+        "description": "توليفة شاي ممتازة مع الحليب المبخر والرغوة المخفوقة بلطف.",
+        "image": "/uploads/menu/hot_drinks/downloaded-1780140583753-esmkbhr0.jpg"
+      },
+      {
+        "id": "hd_caramel",
+        "name": "كراميل",
+        "price": 12,
+        "description": "لاتيه ساخن محلى بصوص الكراميل الطبيعي الدافئ ولذيذ المذاق.",
+        "image": "/uploads/menu/hot_drinks/downloaded-1780140583812-46dakgvy.jpg"
+      },
+      {
+        "id": "hd_french",
+        "name": "فرنش بندق",
+        "price": 12,
+        "description": "قهوة فرنسية ناعمة برائحة ونكهة البندق المحمص الفاخر.",
+        "image": "/uploads/menu/hot_drinks/downloaded-1780140583863-t0xhy7zn.jpg"
+      },
+      {
+        "id": "hd_lotus",
+        "name": "لوتوس",
+        "price": 14,
+        "description": "مشروب ساخن غني ومميز محلى بزبدة وبسكويت اللوتس البلجيكي الشهير.",
+        "image": "/uploads/menu/hot_drinks/downloaded-1780140583921-mtrehaig.jpg"
+      },
+      {
+        "id": "hd_mocha",
+        "name": "موكا",
+        "price": 14,
+        "description": "مزيج من قهوة الاسبريسو والحليب المبخر مع لمسة فاخرة من الكاكاو السويسري والكريمة.",
+        "image": "/uploads/menu/hot_drinks/downloaded-1780140583971-idbgnjy5.jpg"
+      },
+      {
+        "id": "hd_whitemocha",
+        "name": "وايت موكا",
+        "price": 14,
+        "description": "اسبريسو ساخن ناعم ومخلوط بالشوكولاتة البيضاء والكاكاو الممتاز.",
+        "image": "https://images.unsplash.com/photo-1461023717502-44a3698b8f93?auto=format&fit=crop&q=80&w=300"
+      },
+      {
+        "id": "hd_affogatonutella",
+        "name": "افوكاتو نوتيلا",
+        "price": 14,
+        "description": "مزيج من جيلاتو الفانيليا الإيطالية، إسبريسو ساخن، وصوص النوتيلا الذائب.",
+        "image": "https://images.unsplash.com/photo-1594911774802-8822a707c993?auto=format&fit=crop&q=80&w=300"
+      },
+      {
+        "id": "hd_affogatopistachio",
+        "name": "افوكاتو فستق حلبي",
+        "price": 16,
+        "description": "مزيج دافئ وبارد يجمع الآيس كريم مع الاسبريسو وزبدة الفستق الحلبي المقرمشة ورقات الرمان والمكسرات.",
+        "image": "/uploads/menu/hot_drinks/downloaded-1780140585498-003n6946.jpg",
+        "isPopular": true
+      },
+      {
+        "id": "hd_sahlab",
+        "name": "سحلب",
+        "price": 8,
+        "description": "مشروب السحلب الشتوي دافىء، غني بالقرفة، جوز الهند، والمكسرات المحمصة الطازجة.",
+        "image": "/uploads/menu/hot_drinks/downloaded-1780140585549-geizs6zi.jpg"
+      },
+      {
+        "id": "hd_nescafe",
+        "name": "نسكافيه",
+        "price": 8,
+        "description": "كوب نسكافيه كلاسيكي غني برغوة الحليب اللطيفة الكثيفة.",
+        "image": "/uploads/menu/hot_drinks/downloaded-1780140585607-abqef68d.jpg"
+      },
+      {
+        "id": "hd_mixedherbs",
+        "name": "زهورات مكس",
+        "price": 7,
+        "description": "توليفة أعشاب برية طبيعية مهدئة ومنقاة بعناية لراحة مطلقة وصحة مثالية للجسد.",
+        "image": "/uploads/menu/hot_drinks/downloaded-1780140585659-j6fydriy.jpg"
+      },
+      {
+        "id": "hd_arabiccoffee",
+        "name": "قهوه عربية",
+        "price": 10,
+        "description": "قهوة عربية أصيلة معدة من أجود أنواع البن اليمني ومعطرة برائحة الهيل الفواحة والزعفران.",
+        "image": "https://images.unsplash.com/photo-1599390809312-5bd108a4cfec?auto=format&fit=crop&q=80&w=300",
+        "isPopular": true
+      },
+      {
+        "id": "hd_tea",
+        "name": "شاي",
+        "price": 7,
+        "description": "شاي أسود سيلاني منقى ومخمر ببطء، يقدم ساخناً مع النعناع البكر أو الميرمية البرية.",
+        "image": "/uploads/menu/hot_drinks/downloaded-1780140586302-972b859y.jpg"
+      },
+      {
+        "id": "hd_greentea",
+        "name": "شاي اخضر طبيعي 100%",
+        "price": 10,
+        "description": "أوراق الشاي الأخضر العضوية الطبيعية، مثالي للصحة ومجدد كلي للنشاط والاسترخاء.",
+        "image": "/uploads/menu/hot_drinks/downloaded-1780140586361-ftakp491.jpg"
+      }
+    ]
+  },
+  {
+    "id": "cold_drinks",
+    "title": "المشروبات الباردة",
+    "icon": "CupSoda",
+    "image": "/uploads/menu/cold_drinks/downloaded-1780140586412-mwovl8hv.jpg",
+    "items": [
+      {
+        "id": "cd_icedcoffee",
+        "name": "ايس كوفي",
+        "price": 10,
+        "description": "قهوة مثلجة مع الحليب وصوص الشوكولاتة والكراميل والثلج المجروش لمذاق صيفي دافئ وبارد.",
+        "image": "/uploads/menu/cold_drinks/downloaded-1780140586477-va7b7o6n.jpg"
+      },
+      {
+        "id": "cd_icedamericano",
+        "name": "ايس امريكانو",
+        "price": 10,
+        "description": "جرعة إسبريسو مزدوجة فخمة مخففة بالماء البارد ومكعبات الثلج لنقاء تام وانتعاش ممتد.",
+        "image": "/uploads/menu/cold_drinks/downloaded-1780140586529-1if5n2tw.jpg"
+      },
+      {
+        "id": "cd_icedlatye",
+        "name": "ايس لاتيه",
+        "price": 12,
+        "description": "مزيج منعش من قهوة الاسبريسو الغنية مع الحليب البارد الدسم ومكعبات الثلج.",
+        "image": "/uploads/menu/cold_drinks/downloaded-1780140586589-u85vef98.jpg",
+        "isPopular": true
+      },
+      {
+        "id": "cd_passiflora",
+        "name": "ايس مسفلورا",
+        "price": 12,
+        "description": "مشروب مثلج بنكهة الباشن فروت (المسفلورا) المنعشة الفائحة بالحيوية والاستجمام.",
+        "image": "/uploads/menu/cold_drinks/downloaded-1780140586640-c1vfwv1r.jpg"
+      },
+      {
+        "id": "cd_coconut",
+        "name": "ايس جوز هند",
+        "price": 12,
+        "description": "قهوة باردة فخمة مع لمسة ناعمة لحليب جوز الهند ورقائقه اللذيذة والثلج.",
+        "image": "/uploads/menu/cold_drinks/downloaded-1780140586699-a05penvy.jpg"
+      },
+      {
+        "id": "cd_peach_tea",
+        "name": "ايس تي خوخ",
+        "price": 12,
+        "description": "شاي أسود مثلج بنكهة الخوخ الطبيعي اللطيفة وشرائح الليمون لانتعاش لا يصدق.",
+        "image": "/uploads/menu/cold_drinks/downloaded-1780140586751-kms0n1pw.jpg"
+      },
+      {
+        "id": "cd_pineapple",
+        "name": "ايس اناناس",
+        "price": 14,
+        "description": "عصير الاناناس الاستوائي البارد الكثيف والمنعش والمحبوب في أيام الصيف.",
+        "image": "https://images.unsplash.com/photo-1532454516781-be9ae21efbde?auto=format&fit=crop&q=80&w=300"
+      }
+    ]
+  },
+  {
     "id": "fresh_drinks",
     "title": "المشروبات الطازجة",
     "icon": "CupSoda",
-    "image": "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?auto=format&fit=crop&q=80&w=600",
+    "image": "/uploads/menu/fresh_drinks/downloaded-1780140593002-m3hf7vr0.jpg",
     "items": [
       {
         "id": "fd_lemonade",
         "name": "ليموناضة",
         "price": 10,
         "description": "عصير الليمون الطازج المعصور البارد مصفى ومنعش للجسد بالكامل.",
-        "image": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/fresh_drinks/downloaded-1780140593071-f984m2ee.jpg"
       },
       {
         "id": "fd_lemon_mint",
         "name": "ليمون ونعنع",
         "price": 12,
         "description": "عصير ليمون الكوخ الكلاسيكي المخلوط مع النعناع البكر والثلج المجروش.",
-        "image": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&q=80&w=300",
+        "image": "/uploads/menu/fresh_drinks/downloaded-1780140593122-dmhworj2.jpg",
         "isPopular": true
       },
       {
@@ -473,7 +561,7 @@
         "name": "مانجا",
         "price": 14,
         "description": "عصير مانجو استوائي دسم ومصفى محشو ومبرد بلذة لا متناهية.",
-        "image": "https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/fresh_drinks/downloaded-1780140593182-la3ijqqa.jpg"
       }
     ]
   },
@@ -481,28 +569,28 @@
     "id": "milkshakes",
     "title": "ملك شيك",
     "icon": "IceCream",
-    "image": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&q=80&w=600",
+    "image": "/uploads/menu/milkshakes/downloaded-1780140593233-v40x7fmh.jpg",
     "items": [
       {
         "id": "ms_chocolate",
         "name": "ملك شيك شوكليت",
         "price": 14,
         "description": "ميلك شيك غني يدمج جيلاتو الشوكولاتة البلجيكية مع الحليب الطازج والرشات الغنية والكريمة المخفوقة.",
-        "image": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/milkshakes/downloaded-1780140593298-nrfk6pv6.jpg"
       },
       {
         "id": "ms_vanilla",
         "name": "ملك شيك فانيلا",
         "price": 14,
         "description": "ميلك شيك بنكهة الفانيلا الطبيعية السلسة اللطيفة ورغوة الحليب الوفيرة.",
-        "image": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/milkshakes/downloaded-1780140593350-ac7riwsu.jpg"
       },
       {
         "id": "ms_strawberry",
         "name": "ملك شيك فراولة",
         "price": 15,
         "description": "ميلك شيك بلون وحلاوة الفراولة الكنعانية المغطى بازدواجية الكريمة وصوصات التوت البري في قالب غني.",
-        "image": "https://images.unsplash.com/photo-1579954115545-a95591f28bfc?auto=format&fit=crop&q=80&w=300",
+        "image": "/uploads/menu/milkshakes/downloaded-1780140593409-j0kh4t1h.jpg",
         "isPopular": true
       },
       {
@@ -510,35 +598,35 @@
         "name": "ملك شيك اوريو",
         "price": 16,
         "description": "خفقة كريمية مع الحليب البارد وفتات بسكويت أوريو الشهير مع الكاكاو والشوكولاتة الإيطالية الفائقة.",
-        "image": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/milkshakes/downloaded-1780140593459-c4k8urt2.jpg"
       },
       {
         "id": "ms_marshmallow",
         "name": "ملك شيك مارشميلو",
         "price": 16,
         "description": "ملك شيك مبتكر برائحة المارشميلو المشوي وجيلاتو الفانيليا لمذاق لا يصدق.",
-        "image": "https://images.unsplash.com/photo-1579954115545-a95591f28bfc?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/milkshakes/downloaded-1780140593518-2ft8ia1r.jpg"
       },
       {
         "id": "ms_lotus",
         "name": "ملك شيك لوتوس",
         "price": 16,
         "description": "ميلك شيك كريمي مخفوق بفتات وبسكويت لوتس الذهبي وزبدة اللوتس الساخنة البديعة.",
-        "image": "https://images.unsplash.com/photo-1579954115545-a95591f28bfc?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/milkshakes/downloaded-1780140593568-xwx9kkum.jpg"
       },
       {
         "id": "ms_cornetto",
         "name": "ملك شيك كورنيتو",
         "price": 18,
         "description": "ميلك شيك مخفور برذاذ وطعم الكورنيتو الشهير وحبات الشوكولاتة والآيس كريم اللذيذ المقرمش.",
-        "image": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/milkshakes/downloaded-1780140593626-t8jtl7s5.jpg"
       },
       {
         "id": "ms_alzeitouna",
         "name": "ملك شيك الزيتونة",
         "price": 20,
         "description": "الخلطة الملكية العظيمة بمطعمنا مع جيلاتو الفستق، المارشميلو، التوت والشوكولاتة واللوز.",
-        "image": "https://images.unsplash.com/photo-1541658016709-82535e94bc69?auto=format&fit=crop&q=80&w=300",
+        "image": "/uploads/menu/milkshakes/downloaded-1780140593679-ajopaee2.jpg",
         "isPopular": true
       }
     ]
@@ -547,21 +635,21 @@
     "id": "mojitos",
     "title": "الموهيتو",
     "icon": "CupSoda",
-    "image": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&q=80&w=600",
+    "image": "/uploads/menu/mojitos/downloaded-1780140593737-j1g1c4sh.jpg",
     "items": [
       {
         "id": "mj_lemon",
         "name": "موهيتو ليمون",
         "price": 14,
         "description": "أوراق النعناع البري الطازجة المهروسة مع الليمون الكلاسيكي الحامض والصودا والثلج.",
-        "image": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/mojitos/downloaded-1780140593792-1tz9sm9v.jpg"
       },
       {
         "id": "mj_watermelon",
         "name": "موهيتو بطيخ",
         "price": 14,
         "description": "انتعاش الصيف المطلق؛ عصير البطيخ الأحمر الحلو مع قطع الليمون، أوراق النعناع المفرومة بلطافة والثلج.",
-        "image": "https://images.unsplash.com/photo-1546171753-97d7676e4602?auto=format&fit=crop&q=80&w=300",
+        "image": "/uploads/menu/mojitos/downloaded-1780140593851-9419uulf.jpg",
         "isPopular": true
       },
       {
@@ -569,21 +657,21 @@
         "name": "موهيتو رمان",
         "price": 14,
         "description": "مزيج يجمع حبوب الرمان الصغيرة الفاخرة مع ومحات من عصير وقشور الليمون الطبيعي ممزوجة مع الصودا.",
-        "image": "https://images.unsplash.com/photo-1624552184280-9e9631bbeee9?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/mojitos/downloaded-1780140593903-cro6xlzo.jpg"
       },
       {
         "id": "mj_kiwi",
         "name": "موهيتو كيوي",
         "price": 14,
         "description": "توليفة رائعة منعشة وممتازة بطعم الكيوي الطازج المنعش والنعناع البري والليمون والثلج.",
-        "image": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/mojitos/downloaded-1780140593962-flwx22os.jpg"
       },
       {
         "id": "mj_bubblegum",
         "name": "موهيتو بيل جام كاندي",
         "price": 15,
         "description": "موهيتو بطعم ملوّن وحلو من حلوى البيل جام كاندي مع الصودا والنعناع.",
-        "image": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/mojitos/downloaded-1780140594015-y5bt3kd8.jpg"
       },
       {
         "id": "mj_blue_pineapple",
@@ -597,28 +685,28 @@
         "name": "موهيتو اكس ال مكس",
         "price": 16,
         "description": "مكس مشروب الطاقة XL مع الصودا وأوراق النعناع ونكهة الليمون لليقظة القصوى.",
-        "image": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/mojitos/downloaded-1780140594122-l36wxuo3.jpg"
       },
       {
         "id": "mj_mira_mayar",
         "name": "موهيتو ميرا وميار",
         "price": 18,
         "description": "توليفة منعشة وفخمة صممت بلمسات فريدة من النكهات البرية الرائعة تمنحك إحساساً مدهشاً بالراحة.",
-        "image": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/mojitos/downloaded-1780140594180-8u2i01ue.jpg"
       },
       {
         "id": "mj_fresh_air",
         "name": "موهيتو فرش الهوا",
         "price": 18,
         "description": "موهيتو بمذاق ونسيم فرش الهوا الجبلي المنعش مع النعناع والليمون البكر والصودا والمكعبات الباردة.",
-        "image": "https://images.unsplash.com/photo-1546171753-97d7676e4602?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/mojitos/downloaded-1780140594230-nnw58lel.jpg"
       },
       {
         "id": "mj_alzeitouna",
         "name": "موهيتو الزيتونة",
         "price": 20,
         "description": "موهيتو البيت الخاص بمطعمنا؛ مزيج متألق يفيض بأجود نكهات الفواكه الاستوائية والصودا والترطيب.",
-        "image": "https://images.unsplash.com/photo-1624552184280-9e9631bbeee9?auto=format&fit=crop&q=80&w=300",
+        "image": "/uploads/menu/mojitos/downloaded-1780140594290-evbvwn1p.jpg",
         "isPopular": true
       }
     ]
@@ -627,28 +715,28 @@
     "id": "soft_drinks",
     "title": "سوفت درنكس",
     "icon": "CupSoda",
-    "image": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&q=80&w=600",
+    "image": "/uploads/menu/soft_drinks/downloaded-1780140594343-b8y418g7.jpg",
     "items": [
       {
         "id": "sd_cola_sprite",
         "name": "كولا / سبرايت",
         "price": 5,
         "description": "مشروبات غازية منعشة تقدم مثلجة في زجاجات صغيرة لراحة فورية.",
-        "image": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/soft_drinks/downloaded-1780140594406-9hx5h3li.jpg"
       },
       {
         "id": "sd_xl",
         "name": "اكس ال",
         "price": 8,
         "description": "مشروب الطاقة XL بلوس الشهير لزيادة النشاط والتركيز والانتعاش.",
-        "image": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/soft_drinks/downloaded-1780140594457-f2tyr5fy.jpg"
       },
       {
         "id": "sd_blue_day",
         "name": "بلو . داي/ نعنع / سك",
         "price": 7,
         "description": "المشروب الأزرق الخالي من السكر بنكهة النعناع البكر المنشط للشباب.",
-        "image": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/soft_drinks/downloaded-1780140594515-l8xf2f0s.jpg"
       },
       {
         "id": "sd_fayrouz",
@@ -662,50 +750,28 @@
         "name": "بافاريا تفاح",
         "price": 7,
         "description": "مطبوع التفاح الطبيعي البافاري الخالي من الكحول البارد والمنشط المفضل.",
-        "image": "https://images.unsplash.com/photo-1497515114629-f71d768fd07c?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/soft_drinks/downloaded-1780140594623-q0sdl0wo.jpg"
       },
       {
         "id": "sd_soda",
         "name": "صودا سك",
         "price": 7,
         "description": "مياه الصودا والغاز الرائعة الباردة والنقية بدون نكهات صناعية.",
-        "image": "https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/soft_drinks/downloaded-1780140594676-nguynv6t.jpg"
       },
       {
         "id": "sd_water_small",
         "name": "مياه معدنية صغير",
         "price": 3,
         "description": "مياه معقمة ومستخرجة من ينابيع طبيعية نقية لترطيب مستمر وصيانة للنشاط.",
-        "image": "https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/soft_drinks/downloaded-1780140594734-b9kk3hz8.jpg"
       },
       {
         "id": "sd_water_large",
         "name": "مياه معدنية كبير",
         "price": 6,
         "description": "مياه طبيعية نقية ومبردة بحجم عائلي كبير ومناسب.",
-        "image": "https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&q=80&w=300"
-      }
-    ]
-  },
-  {
-    "id": "ice_cream",
-    "title": "المثلجات",
-    "icon": "IceCream",
-    "image": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&q=80&w=600",
-    "items": [
-      {
-        "id": "ic_chocolate",
-        "name": "مثلجات شوكليت",
-        "price": 12,
-        "description": "كرات جيلاتو كريمية دسمة ومبردة غنية بطعم الموكا والشوكولاتة والكاكاو السويسري الفاخر والمكسرات.",
-        "image": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&q=80&w=300"
-      },
-      {
-        "id": "ic_vanilla",
-        "name": "مثلجات فانيلا",
-        "price": 12,
-        "description": "جيلاتو الفانيليا الإيطالية فائقة النعومة والطعم السلس الكلاسيكي ورشات جوز الهند الكثيف البديع.",
-        "image": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&q=80&w=300"
+        "image": "/uploads/menu/soft_drinks/downloaded-1780140594784-n39qk122.jpg"
       }
     ]
   }
