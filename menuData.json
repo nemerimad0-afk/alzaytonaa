@@ -3,7 +3,7 @@
     "id": "grills",
     "title": "الوجبات الرئيسية",
     "icon": "Flame",
-    "image": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&q=80&w=600",
+    "image": "/uploads/menu/grills/downloaded-1783623327691-0exx902v.jpg",
     "items": [
       {
         "id": "meal1",
@@ -56,7 +56,7 @@
     "id": "pastries_pizza",
     "title": "المعجنات والبيتزا",
     "icon": "ChefHat",
-    "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&q=80&w=600",
+    "image": "/uploads/menu/pastries_pizza/downloaded-1783623328567-eq339adh.jpg",
     "items": [
       {
         "id": "pp_1",
@@ -76,23 +76,37 @@
       {
         "id": "pp_2",
         "name": "منقوشة زعتر",
-        "price": 20,
+        "price": 17,
         "description": "على عجينة طرية وذهبية نفرد مزيجاً رائعاً من الزعتر الفلسطيني المعطر والمغمور بزيت الزيتون البكر الممتاز.",
         "image": "/uploads/menu/pastries_pizza/downloaded-1780140747695-d0ahjifd.jpg"
       },
       {
         "id": "pp_cheese",
         "name": "فطيرة جبنة مكس",
-        "price": 20,
+        "price": 25,
         "description": "مزيج لذيذ من الأجبان الفاخرة المخبوزة داخل عجينة طرية وذهبية.",
         "image": "/uploads/menu/pastries_pizza/downloaded-1780141368249-73t6oi1f.jpg"
       },
       {
         "id": "pp_meat",
         "name": "فطيرة لحم بالعجين",
-        "price": 20,
+        "price": 30,
         "description": "لحمة غنم مفرومة ومتبلة ببهارات شامية دافئة مع البندورة والبصل، مخبوزة على عجينة رقيقة ومقرمشة.",
         "image": "/uploads/menu/pastries_pizza/downloaded-1780141368303-zm0dvjp4.jpg"
+      },
+      {
+        "id": "pp_pepperoni",
+        "name": "بيتزا بيبيروني",
+        "price": 30,
+        "description": "عجينة إيطالية مقرمشة مغطاة بصلصة الطماطم الغنية، جبنة الموزاريلا الفاخرة وشرائح البيبيروني اللذيذة.",
+        "image": "https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&q=80&w=300"
+      },
+      {
+        "id": "pp_sausage",
+        "name": "بيتزا نقانق",
+        "price": 30,
+        "description": "عجينة بيتزا طازجة مع صلصة الطماطم الكلاسيكية، جبنة الموزاريلا وقطع النقانق الشهية.",
+        "image": "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&q=80&w=300"
       }
     ]
   },
@@ -138,7 +152,7 @@
     "id": "crepes",
     "title": "الكريب",
     "icon": "CakeSlice",
-    "image": "https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&q=80&w=600",
+    "image": "/uploads/menu/crepes/downloaded-1783623330001-etol7590.jpg",
     "items": [
       {
         "id": "cr_classic",
@@ -175,7 +189,7 @@
     "id": "pancakes",
     "title": "البان كيك",
     "icon": "CakeSlice",
-    "image": "https://images.unsplash.com/photo-1528207776546-365bb710ee93?auto=format&fit=crop&q=80&w=600",
+    "image": "/uploads/menu/pancakes/downloaded-1783623330062-2ry8wz6z.jpg",
     "items": [
       {
         "id": "pc_cup",
@@ -220,7 +234,7 @@
     "id": "fashafesh",
     "title": "الفشافيش",
     "icon": "CakeSlice",
-    "image": "https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&q=80&w=600",
+    "image": "/uploads/menu/fashafesh/downloaded-1783623330855-ahjhat6r.jpg",
     "items": [
       {
         "id": "ff_classic",
@@ -345,7 +359,7 @@
     "id": "hot_drinks",
     "title": "المشروبات الساخنة",
     "icon": "Coffee",
-    "image": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&q=80&w=600",
+    "image": "/uploads/menu/hot_drinks/downloaded-1783623333503-q6d297nm.jpg",
     "items": [
       {
         "id": "hd_single",
@@ -481,7 +495,7 @@
     "id": "cold_drinks",
     "title": "المشروبات الباردة",
     "icon": "CupSoda",
-    "image": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&q=80&w=600",
+    "image": "/uploads/menu/cold_drinks/downloaded-1783623334721-x3dlhq52.jpg",
     "items": [
       {
         "id": "cd_icedcoffee",
@@ -539,7 +553,7 @@
     "id": "fresh_drinks",
     "title": "المشروبات الطازجة",
     "icon": "CupSoda",
-    "image": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&q=80&w=600",
+    "image": "/uploads/menu/fresh_drinks/downloaded-1783623334774-hc8owk5j.jpg",
     "items": [
       {
         "id": "fd_lemonade",
@@ -569,7 +583,7 @@
     "id": "milkshakes",
     "title": "ملك شيك",
     "icon": "IceCream",
-    "image": "https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&q=80&w=600",
+    "image": "/uploads/menu/milkshakes/downloaded-1783623334829-lvu0eoiw.jpg",
     "items": [
       {
         "id": "ms_chocolate",
@@ -635,7 +649,7 @@
     "id": "mojitos",
     "title": "الموهيتو",
     "icon": "CupSoda",
-    "image": "https://images.unsplash.com/photo-1551538827-9c037cb4f32a?auto=format&fit=crop&q=80&w=600",
+    "image": "/uploads/menu/mojitos/downloaded-1783623334956-f0hfy6ho.jpg",
     "items": [
       {
         "id": "mj_lemon",
@@ -715,7 +729,7 @@
     "id": "soft_drinks",
     "title": "سوفت درنكس",
     "icon": "CupSoda",
-    "image": "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&q=80&w=600",
+    "image": "/uploads/menu/soft_drinks/downloaded-1783623335013-tqvi5lx6.jpg",
     "items": [
       {
         "id": "sd_cola_sprite",
